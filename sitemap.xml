@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Rahnova is a single-page site: Services, Demo, Process, About and Contact are
+  sections of the home page reached with #links, and search engines ignore the
+  part after #. So the home page is the only address to list here.
+  Update <lastmod> whenever the site changes.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://nuviawebai.com/</loc>
+    <lastmod>2026-11-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
