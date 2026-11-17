@@ -3,23 +3,24 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nuvia — AI-powered website development</title>
-<meta name="description" content="Nuvia is an AI agency that designs and builds fast, custom websites.">
-<meta name="theme-color" content="#0F3D2E">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-45 -25 320 320'%3E%3Crect x='-45' y='-25' width='320' height='320' rx='64' fill='%230F3D2E'/%3E%3Cpath d='M20 250V60l190 190V102' fill='none' stroke='%23ECFDF5' stroke-width='36' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='209' cy='29' r='26' fill='%23A3E635'/%3E%3C/svg%3E">
+<title>Rahnova — AI-powered website development</title>
+<meta name="description" content="Rahnova is an AI agency that designs and builds fast, custom websites.">
+<meta name="theme-color" content="#17153B">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-45 -25 320 320'%3E%3Crect x='-45' y='-25' width='320' height='320' rx='64' fill='%2317153B'/%3E%3Cpath d='M20 250V60h90a65 65 0 0 1 0 130H20M110 190l100 60' fill='none' stroke='%23FFF4EA' stroke-width='36' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='209' cy='29' r='26' fill='%23FF7849'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* ---------- Brand tokens: every colour below is sampled from the Nuvia logo ---------- */
+/* ---------- Brand tokens: "new path" at dusk, from the Rahnova logo ---------- */
 :root{
-  --forest:#0F3D2E;   /* logo background */
-  --mint:#ECFDF5;     /* logo mark and wordmark (also the site's off-white) */
-  --lime:#A3E635;     /* logo dot */
-  --sage:#A7D8C2;     /* logo tagline */
-  --ink:#06140F;      /* the one added near-black */
-  /* The single brand gradient: logo colours, running bottom-left to top-right, toward the dot */
-  --grad:linear-gradient(45deg,var(--forest) 0%,var(--lime) 50%,var(--mint) 100%);
+  --night:#17153B;    /* logo background: deep indigo */
+  --cream:#FFF4EA;    /* logo mark and wordmark (also the site's off-white) */
+  --ember:#FF7849;    /* logo dot: coral */
+  --violet:#7C5CFF;   /* the bridge between night and ember in the gradient */
+  --lilac:#C4B5FD;    /* logo tagline and muted text */
+  --ink:#0A0920;      /* near-black */
+  /* The single brand gradient, running bottom-left to top-right, toward the dot */
+  --grad:linear-gradient(45deg,var(--night) 0%,var(--violet) 30%,var(--ember) 62%,var(--cream) 100%);
   --display:"Space Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
   --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
   --pad:clamp(20px,4.2vw,72px);
@@ -31,7 +32,7 @@ html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth{scroll-behavior:auto!important}
 .lenis.lenis-stopped{overflow:hidden}
 body{
-  --bg:var(--forest);--fg:var(--mint);--muted:var(--sage);--line:rgba(236,253,245,.17);--accent:var(--lime);
+  --bg:var(--night);--fg:var(--cream);--muted:var(--lilac);--line:rgba(255,244,234,.17);--accent:var(--ember);
   margin:0;background:var(--bg);color:var(--fg);
   font:400 1rem/1.6 var(--body);
   -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
@@ -39,15 +40,15 @@ body{
   transition:background-color .9s var(--ease),color .7s var(--ease);
 }
 body[data-theme="ink"]{--bg:var(--ink)}
-body[data-theme="mint"]{--bg:var(--mint);--fg:var(--forest);--muted:rgba(15,61,46,.76);--line:rgba(15,61,46,.2);--accent:var(--forest)}
+body[data-theme="cream"]{--bg:var(--cream);--fg:var(--night);--muted:rgba(23,21,59,.76);--line:rgba(23,21,59,.2);--accent:var(--night)}
 h1,h2,h3,p,ol,ul,dl,dd,figure{margin:0}
 ol,ul{padding:0;list-style:none}
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
 svg{display:block}
-::selection{background:var(--lime);color:var(--ink)}
+::selection{background:var(--ember);color:var(--ink)}
 :focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:4px}
-.skip{position:fixed;left:16px;top:-80px;z-index:200;background:var(--lime);color:var(--ink);padding:12px 18px;border-radius:999px;font:600 .95rem/1 var(--display)}
+.skip{position:fixed;left:16px;top:-80px;z-index:200;background:var(--ember);color:var(--ink);padding:12px 18px;border-radius:999px;font:600 .95rem/1 var(--display)}
 .skip:focus{top:16px}
 
 /* ---------- Shared type ---------- */
@@ -58,44 +59,44 @@ h2{font-size:clamp(2.5rem,6.4vw,7rem);line-height:.96}
 .line{display:block;overflow:hidden;padding:.07em 0 .13em;margin:-.07em 0 -.13em}
 .line-in{display:block;will-change:transform}
 .grad{background:var(--grad);background-size:220% 100%;background-position:100% 50%;-webkit-background-clip:text;background-clip:text;color:transparent}
-body[data-theme="mint"] .grad{background:none;color:var(--forest)}
+body[data-theme="cream"] .grad{background:none;color:var(--night)}
 .lede{font-size:clamp(1.05rem,1.35vw,1.35rem);line-height:1.55;color:var(--muted);max-width:36em;transition:color .7s var(--ease)}
 
 /* ---------- Buttons and links ---------- */
 .btn{display:inline-flex;align-items:center;gap:.75em;padding:1.1em 1.7em;border-radius:999px;font:600 1rem/1 var(--display);letter-spacing:-.01em;color:var(--ink);background:var(--grad);background-size:220% 100%;background-position:100% 50%;transition:background-position .7s var(--ease),box-shadow .5s var(--ease);will-change:transform}
-.btn:hover{background-position:60% 50%;box-shadow:0 0 44px rgba(163,230,53,.4)}
+.btn:hover{background-position:60% 50%;box-shadow:0 0 44px rgba(255,120,73,.4)}
 .btn svg{width:1.05em;height:1.05em;transition:transform .5s var(--ease)}
 .btn:hover svg{transform:translate(3px,-3px)}
 .btn-sm{padding:.85em 1.3em;font-size:.9rem}
-body[data-theme="mint"] .btn{background:var(--forest);color:var(--mint)}
-body[data-theme="mint"] .btn:hover{box-shadow:0 0 44px rgba(15,61,46,.25)}
+body[data-theme="cream"] .btn{background:var(--night);color:var(--cream)}
+body[data-theme="cream"] .btn:hover{box-shadow:0 0 44px rgba(23,21,59,.25)}
 .link{position:relative;display:inline-flex;align-items:center;gap:.6em;font:500 1rem/1 var(--display);padding:.5em 0}
 .link::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;transform-origin:right;transition:transform .6s var(--ease)}
 .link:hover::after{transform:scaleX(0);transform-origin:left}
 
 /* ---------- Fixed layers ---------- */
 #gl{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none}
-.grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .93 0 0 0 0 .99 0 0 0 0 .96 0 0 0 .7 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 .96 0 0 0 0 .92 0 0 0 .7 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 .cursor{position:fixed;top:0;left:0;z-index:90;pointer-events:none;display:none;transition:opacity .3s}
 html.has-cursor .cursor{display:block}
 html.has-cursor,html.has-cursor a,html.has-cursor button,html.has-cursor label{cursor:none}
 .cursor i{position:absolute;top:0;left:0;display:block}
 .c-dot{width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:var(--accent)}
 .c-ring b{display:block;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;border:1px solid var(--fg);opacity:.45;transition:transform .45s var(--ease),background-color .3s,border-color .3s,opacity .3s}
-.cursor[data-state="link"] .c-ring b{transform:scale(1.7);background:rgba(163,230,53,.2);border-color:var(--lime);opacity:1}
-.cursor[data-state="card"] .c-ring b{transform:scale(2.6);background:rgba(163,230,53,.28);border-color:var(--lime);opacity:1}
+.cursor[data-state="link"] .c-ring b{transform:scale(1.7);background:rgba(255,120,73,.2);border-color:var(--ember);opacity:1}
+.cursor[data-state="card"] .c-ring b{transform:scale(2.6);background:rgba(255,120,73,.28);border-color:var(--ember);opacity:1}
 .cursor[data-state="text"]{opacity:0}
 
 /* ---------- Loader ---------- */
-.loader{position:fixed;inset:0;z-index:100;background:var(--forest);color:var(--mint);display:flex;align-items:center;justify-content:center}
+.loader{position:fixed;inset:0;z-index:100;background:var(--night);color:var(--cream);display:flex;align-items:center;justify-content:center}
 .l-inner{display:flex;flex-direction:column;align-items:center;gap:28px}
 .l-mark{width:clamp(84px,10vw,132px);height:auto;overflow:visible}
 .l-path{fill:none;stroke:currentColor;stroke-width:36;stroke-linecap:round;stroke-linejoin:round}
-.l-dot{fill:var(--lime);transform-box:fill-box;transform-origin:center}
+.l-dot{fill:var(--ember);transform-box:fill-box;transform-origin:center}
 .l-word{font:700 clamp(2.2rem,4.4vw,3.6rem)/1 var(--display);letter-spacing:-.03em;overflow:hidden;display:flex;padding-bottom:.12em}
 .l-word span{display:block}
-.l-foot{position:absolute;left:var(--pad);right:var(--pad);bottom:28px;display:flex;justify-content:space-between;align-items:flex-end;font:500 .78rem/1 var(--display);letter-spacing:.32em;text-transform:uppercase;color:var(--sage)}
-.l-num{font-variant-numeric:tabular-nums;letter-spacing:.1em;color:var(--mint)}
+.l-foot{position:absolute;left:var(--pad);right:var(--pad);bottom:28px;display:flex;justify-content:space-between;align-items:flex-end;font:500 .78rem/1 var(--display);letter-spacing:.32em;text-transform:uppercase;color:var(--lilac)}
+.l-num{font-variant-numeric:tabular-nums;letter-spacing:.1em;color:var(--cream)}
 
 /* ---------- Nav ---------- */
 .nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:18px var(--pad);transition:transform .7s var(--ease)}
@@ -105,16 +106,16 @@ html.has-cursor,html.has-cursor a,html.has-cursor button,html.has-cursor label{c
 .logo{display:inline-flex;align-items:center;gap:12px;font:700 1.6rem/1 var(--display);letter-spacing:-.03em}
 .logo svg{width:26px;height:auto;overflow:visible}
 .mark-n{fill:none;stroke:currentColor;stroke-width:36;stroke-linecap:round;stroke-linejoin:round}
-.mark-d{fill:var(--lime)}
+.mark-d{fill:var(--ember)}
 .nav-links{display:flex;gap:clamp(18px,2.6vw,40px);font:500 .95rem/1 var(--display)}
 .nav-links a{position:relative;padding:.6em 0}
 .nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:.2em;height:1px;background:var(--accent);transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease)}
 .nav-links a:hover::after{transform:scaleX(1);transform-origin:left}
 .nav-right{display:flex;align-items:center;gap:14px}
 .menu-btn{display:none;font:500 .95rem/1 var(--display);padding:.85em 1.2em;border:1px solid var(--line);border-radius:999px}
-.menu{position:fixed;inset:0;z-index:45;background:var(--ink);color:var(--mint);display:flex;flex-direction:column;justify-content:flex-end;padding:96px var(--pad) 40px;clip-path:inset(0 0 100% 0);visibility:hidden;transition:clip-path .8s var(--ease),visibility 0s .8s}
+.menu{position:fixed;inset:0;z-index:45;background:var(--ink);color:var(--cream);display:flex;flex-direction:column;justify-content:flex-end;padding:96px var(--pad) 40px;clip-path:inset(0 0 100% 0);visibility:hidden;transition:clip-path .8s var(--ease),visibility 0s .8s}
 .menu.is-open{clip-path:inset(0 0 0 0);visibility:visible;transition:clip-path .8s var(--ease),visibility 0s}
-.menu a.m-link{display:block;font:700 clamp(2.6rem,13vw,5rem)/1.05 var(--display);letter-spacing:-.04em;padding:.12em 0;border-top:1px solid rgba(236,253,245,.17)}
+.menu a.m-link{display:block;font:700 clamp(2.6rem,13vw,5rem)/1.05 var(--display);letter-spacing:-.04em;padding:.12em 0;border-top:1px solid rgba(255,244,234,.17)}
 .menu .btn{margin-top:28px;align-self:flex-start}
 
 /* ---------- Layout base ---------- */
@@ -131,7 +132,7 @@ section{position:relative;padding:clamp(96px,13vw,210px) var(--pad)}
 .ticker{margin:0 calc(var(--pad)*-1);border-top:1px solid var(--line);overflow:hidden;padding:17px 0}
 .ticker-in{display:flex;width:max-content;animation:tick 36s linear infinite}
 .ticker-in span{font:500 .78rem/1 var(--display);letter-spacing:.32em;text-transform:uppercase;color:var(--muted);white-space:nowrap;padding-right:3.2em}
-.ticker-in span::after{content:"";display:inline-block;width:.6em;height:.6em;border-radius:50%;background:var(--lime);margin-left:3.2em;vertical-align:.02em}
+.ticker-in span::after{content:"";display:inline-block;width:.6em;height:.6em;border-radius:50%;background:var(--ember);margin-left:3.2em;vertical-align:.02em}
 @keyframes tick{to{transform:translateX(-50%)}}
 
 /* ---------- Services: website development (light, oversized words on the right) ---------- */
@@ -145,7 +146,7 @@ section{position:relative;padding:clamp(96px,13vw,210px) var(--pad)}
 .big:hover h3{transform:translateX(.25em)}
 .big p{margin-top:.9em;max-width:32em;color:var(--muted);transition:color .7s var(--ease)}
 .big-n{position:absolute;right:0;top:clamp(22px,2.6vw,36px);font:500 .78rem/1 var(--display);letter-spacing:.2em;color:var(--muted)}
-.big h3 i{font-style:normal;display:inline-block;width:.2em;height:.2em;border-radius:50%;background:var(--lime);margin-left:.12em;transform:scale(0);transition:transform .5s var(--ease)}
+.big h3 i{font-style:normal;display:inline-block;width:.2em;height:.2em;border-radius:50%;background:var(--ember);margin-left:.12em;transform:scale(0);transition:transform .5s var(--ease)}
 .big:hover h3 i{transform:scale(1)}
 
 /* ---------- Live demo: pick a business and a style, and a home page rebuilds itself ---------- */
@@ -157,19 +158,19 @@ section{position:relative;padding:clamp(96px,13vw,210px) var(--pad)}
 .demo-ctrl .pills{margin:0}
 .demo-note{font:500 .78rem/1.5 var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .demo-timer{display:block;height:2px;background:var(--line);overflow:hidden;margin-top:-18px}
-.demo-timer b{display:block;height:100%;background:var(--lime);transform-origin:left;transform:scaleX(0)}
+.demo-timer b{display:block;height:100%;background:var(--ember);transform-origin:left;transform:scaleX(0)}
 .demo-stage{perspective:1400px}
 .demo-site{
-  --s-bg:var(--mint);--s-fg:var(--forest);--s-bb:var(--forest);--s-bf:var(--mint);--s-a:var(--lime);--s-b:var(--forest);--s-c:var(--sage);
+  --s-bg:var(--cream);--s-fg:var(--night);--s-bb:var(--night);--s-bf:var(--cream);--s-a:var(--ember);--s-b:var(--night);--s-c:var(--lilac);
   --px:0;--py:0;position:relative;aspect-ratio:16/10;border-radius:clamp(14px,1.6vw,26px);overflow:hidden;will-change:transform;
   container-type:inline-size;display:flex;flex-direction:column;background:var(--s-bg);color:var(--s-fg);
   box-shadow:0 50px 120px -50px rgba(0,0,0,.7);transition:background-color .9s var(--ease),color .9s var(--ease)}
-.demo-site.sty-bold{--s-bg:var(--ink);--s-fg:var(--mint);--s-bb:var(--lime);--s-bf:var(--ink);--s-a:var(--lime);--s-b:var(--sage);--s-c:var(--mint)}
-.demo-site.sty-fresh{--s-bg:var(--lime);--s-fg:var(--forest);--s-bb:var(--forest);--s-bf:var(--mint);--s-a:var(--mint);--s-b:var(--forest);--s-c:var(--sage)}
-.m-bar{flex:0 0 auto;height:max(26px,4.6cqw);display:flex;align-items:center;gap:max(4px,.7cqw);padding:0 2.2cqw;background:rgba(6,20,15,.1)}
-.sty-bold .m-bar{background:rgba(236,253,245,.07)}
+.demo-site.sty-bold{--s-bg:var(--ink);--s-fg:var(--cream);--s-bb:var(--ember);--s-bf:var(--ink);--s-a:var(--ember);--s-b:var(--lilac);--s-c:var(--cream)}
+.demo-site.sty-fresh{--s-bg:var(--ember);--s-fg:var(--night);--s-bb:var(--night);--s-bf:var(--cream);--s-a:var(--cream);--s-b:var(--night);--s-c:var(--lilac)}
+.m-bar{flex:0 0 auto;height:max(26px,4.6cqw);display:flex;align-items:center;gap:max(4px,.7cqw);padding:0 2.2cqw;background:rgba(10,9,32,.1)}
+.sty-bold .m-bar{background:rgba(255,244,234,.07)}
 .m-bar i{width:max(6px,.9cqw);height:max(6px,.9cqw);border-radius:50%;background:currentColor;opacity:.35}
-.m-bar span{margin-left:1.4cqw;font:500 max(9px,1.2cqw)/1 var(--body);opacity:.7;padding:.45em 1.3em;border-radius:999px;background:rgba(6,20,15,.08)}
+.m-bar span{margin-left:1.4cqw;font:500 max(9px,1.2cqw)/1 var(--body);opacity:.7;padding:.45em 1.3em;border-radius:999px;background:rgba(10,9,32,.08)}
 .m-body{position:relative;flex:1;padding:3.4cqw 4.4cqw;overflow:hidden}
 .m-nav{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;font:700 max(10px,1.6cqw)/1 var(--display);letter-spacing:-.02em}
 .m-nav em{font-style:normal;font-weight:500;letter-spacing:0;opacity:.7;display:flex;gap:2.4cqw;font-size:max(9px,1.3cqw)}
@@ -207,15 +208,15 @@ section{position:relative;padding:clamp(96px,13vw,210px) var(--pad)}
 .process-side{position:sticky;top:16vh}
 .process-side h2{margin:clamp(18px,2.4vw,36px) 0}
 .process-count{font:500 .9rem/1 var(--display);letter-spacing:.2em;color:var(--muted)}
-.process-count span{color:var(--lime);font-variant-numeric:tabular-nums}
+.process-count span{color:var(--ember);font-variant-numeric:tabular-nums}
 .steps{position:relative}
 .steps-line{position:absolute;left:5px;top:0;bottom:0;width:1px;background:var(--line)}
-.steps-line b{display:block;width:100%;height:100%;background:var(--lime);transform:scaleY(0);transform-origin:top}
+.steps-line b{display:block;width:100%;height:100%;background:var(--ember);transform:scaleY(0);transform-origin:top}
 .step{position:relative;padding:9vh 0 9vh clamp(36px,4vw,64px);opacity:.5;transition:opacity .6s var(--ease)}
 .step.is-active{opacity:1}
-.step::before{content:"";position:absolute;left:0;top:calc(9vh + .55em);width:11px;height:11px;border-radius:50%;background:var(--bg);border:1px solid var(--sage);transition:background-color .4s,border-color .4s,transform .5s var(--ease)}
-.step.is-active::before{background:var(--lime);border-color:var(--lime);transform:scale(1.5)}
-.step-n{font:500 .78rem/1 var(--display);letter-spacing:.2em;color:var(--lime)}
+.step::before{content:"";position:absolute;left:0;top:calc(9vh + .55em);width:11px;height:11px;border-radius:50%;background:var(--bg);border:1px solid var(--lilac);transition:background-color .4s,border-color .4s,transform .5s var(--ease)}
+.step.is-active::before{background:var(--ember);border-color:var(--ember);transform:scale(1.5)}
+.step-n{font:500 .78rem/1 var(--display);letter-spacing:.2em;color:var(--ember)}
 .step h3{font-size:clamp(2rem,3.8vw,4rem);line-height:1;margin:.3em 0 .4em}
 .step p{color:var(--muted);max-width:30em;font-size:clamp(1rem,1.2vw,1.2rem)}
 
@@ -235,11 +236,11 @@ section{position:relative;padding:clamp(96px,13vw,210px) var(--pad)}
 .contact-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(32px,6vw,120px);margin-top:clamp(48px,7vw,110px)}
 .contact-info p{color:var(--muted);max-width:26em}
 .contact-mail{display:inline-block;margin:28px 0 22px;font:600 clamp(1.2rem,1.9vw,1.9rem)/1.2 var(--display);letter-spacing:-.02em;border-bottom:1px solid var(--line);padding-bottom:.2em;transition:border-color .4s}
-.contact-mail:hover{border-color:var(--lime)}
+.contact-mail:hover{border-color:var(--ember)}
 .contact-mail{display:block;width:max-content;max-width:100%;overflow-wrap:anywhere}
 .wa-link{display:inline-flex;align-items:center;gap:.7em;padding:.85em 1.3em;border:1px solid var(--line);border-radius:999px;font:500 1rem/1 var(--display);transition:border-color .4s,background-color .4s,color .4s}
-.wa-link svg{width:1.25em;height:1.25em;color:var(--lime)}
-.wa-link:hover{border-color:var(--lime);background:var(--lime);color:var(--ink)}
+.wa-link svg{width:1.25em;height:1.25em;color:var(--ember)}
+.wa-link:hover{border-color:var(--ember);background:var(--ember);color:var(--ink)}
 .wa-link:hover svg{color:var(--ink)}
 .gl-slot{height:clamp(220px,34vh,360px);margin-top:44px;max-width:420px}
 .form{display:block}
@@ -247,15 +248,15 @@ section{position:relative;padding:clamp(96px,13vw,210px) var(--pad)}
 .field>span,.pills legend{display:block;font:500 .78rem/1 var(--display);letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;padding:0}
 .field input,.field textarea{width:100%;background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;color:var(--fg);font:500 1.15rem/1.4 var(--body);padding:10px 0;transition:border-color .4s,box-shadow .4s}
 .field textarea{resize:vertical;min-height:110px}
-.field input:focus,.field textarea:focus{outline:none;border-bottom-color:var(--lime);box-shadow:0 2px 0 0 var(--lime)}
+.field input:focus,.field textarea:focus{outline:none;border-bottom-color:var(--ember);box-shadow:0 2px 0 0 var(--ember)}
 .pills{border:0;padding:0;margin:0 0 30px;display:flex;flex-wrap:wrap;gap:10px}
 .pills legend{width:100%;margin-bottom:12px}
 .pill{position:relative}
 .pill input{position:absolute;opacity:0;width:1px;height:1px}
 .pill span{display:inline-block;padding:.8em 1.15em;border:1px solid var(--line);border-radius:999px;font:500 .95rem/1 var(--display);transition:background-color .3s,color .3s,border-color .3s}
-.pill:hover span{border-color:var(--lime)}
-.pill input:checked+span{background:var(--lime);color:var(--ink);border-color:var(--lime)}
-.pill input:focus-visible+span{outline:2px solid var(--lime);outline-offset:3px}
+.pill:hover span{border-color:var(--ember)}
+.pill input:checked+span{background:var(--ember);color:var(--ink);border-color:var(--ember)}
+.pill input:focus-visible+span{outline:2px solid var(--ember);outline-offset:3px}
 .form-foot{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
 .form-status{color:var(--muted);font-size:.95rem;min-height:1.6em}
 
@@ -266,8 +267,8 @@ footer{padding:clamp(56px,7vw,110px) var(--pad) 0;overflow:hidden}
 .foot-nav{display:flex;gap:clamp(28px,6vw,110px);font:500 1rem/1 var(--display)}
 .foot-nav ul{display:grid;gap:14px}
 .foot-nav a{border-bottom:1px solid transparent;padding-bottom:.25em;transition:border-color .4s}
-.foot-nav a:hover{border-color:var(--lime)}
-.mega{font:700 33.5vw/.86 var(--display);letter-spacing:-.05em;margin:clamp(24px,4vw,64px) -.04em 0;text-align:center;white-space:nowrap;user-select:none}
+.foot-nav a:hover{border-color:var(--ember)}
+.mega{font:700 25vw/.86 var(--display);letter-spacing:-.05em;margin:clamp(24px,4vw,64px) -.04em 0;text-align:center;white-space:nowrap;user-select:none}
 .mega .line{padding:.02em 0 .06em;margin:0}
 .foot-bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:18px 0 22px;border-top:1px solid var(--line);font-size:.85rem;color:var(--muted)}
 
@@ -300,14 +301,14 @@ html.reduced .loader{display:none}
 <script>if(window.matchMedia('(prefers-reduced-motion: reduce)').matches||/[?&]motion=off/.test(location.search))document.documentElement.classList.add('reduced');</script>
 <noscript><style>.loader{display:none}</style></noscript>
 </head>
-<body data-theme="forest">
+<body data-theme="night">
 <a class="skip" href="#main">Skip to content</a>
 
 <!-- Loading screen: the logo mark draws itself, then hands off to the 3D mark in the hero -->
 <div class="loader" id="loader" aria-hidden="true">
   <div class="l-inner">
-    <svg class="l-mark" viewBox="0 0 230 270"><path class="l-path" d="M20 250V60l190 190V102"/><circle class="l-dot" cx="209" cy="29" r="26"/></svg>
-    <div class="l-word"><span>n</span><span>u</span><span>v</span><span>i</span><span>a</span></div>
+    <svg class="l-mark" viewBox="0 0 230 270"><path class="l-path" d="M20 250V60h90a65 65 0 0 1 0 130H20M110 190l100 60"/><circle class="l-dot" cx="209" cy="29" r="26"/></svg>
+    <div class="l-word"><span>r</span><span>a</span><span>h</span><span>n</span><span>o</span><span>v</span><span>a</span></div>
   </div>
   <div class="l-foot"><span>Build fast. Grow smarter.</span><span class="l-num" id="loaderNum">000</span></div>
 </div>
@@ -317,9 +318,9 @@ html.reduced .loader{display:none}
 <div class="cursor" id="cursor" aria-hidden="true"><i class="c-dot"></i><i class="c-ring"><b></b></i></div>
 
 <header class="nav" id="nav">
-  <a class="logo" href="#top" aria-label="Nuvia, back to top">
-    <svg viewBox="0 0 230 270" aria-hidden="true"><path class="mark-n" d="M20 250V60l190 190V102"/><circle class="mark-d" cx="209" cy="29" r="26"/></svg>
-    <span>nuvia</span>
+  <a class="logo" href="#top" aria-label="Rahnova, back to top">
+    <svg viewBox="0 0 230 270" aria-hidden="true"><path class="mark-n" d="M20 250V60h90a65 65 0 0 1 0 130H20M110 190l100 60"/><circle class="mark-d" cx="209" cy="29" r="26"/></svg>
+    <span>rahnova</span>
   </a>
   <nav class="nav-links" aria-label="Primary">
     <a href="#services">Services</a>
@@ -345,7 +346,7 @@ html.reduced .loader{display:none}
 <main id="main">
 
   <!-- 1. HERO -->
-  <section class="hero" id="top" data-theme="forest" data-kf="hero">
+  <section class="hero" id="top" data-theme="night" data-kf="hero">
     <p class="eyebrow" data-hero>AI-powered website development</p>
     <h1>
       <span class="line"><span class="line-in">Build fast.</span></span>
@@ -371,7 +372,7 @@ html.reduced .loader{display:none}
   </section>
 
   <!-- 2. SERVICES: WEBSITE DEVELOPMENT -->
-  <section class="world world-web" id="services" data-theme="mint" data-kf="web">
+  <section class="world world-web" id="services" data-theme="cream" data-kf="web">
     <div class="world-head">
       <p class="eyebrow">What we do</p>
       <h2 class="split">
@@ -388,7 +389,7 @@ html.reduced .loader{display:none}
   </section>
 
   <!-- 3. LIVE DEMO -->
-  <section class="demo" id="demo" data-theme="forest" data-kf="work">
+  <section class="demo" id="demo" data-theme="night" data-kf="work">
     <div class="demo-head">
       <div>
         <p class="eyebrow">Live demo</p>
@@ -455,9 +456,9 @@ html.reduced .loader{display:none}
   </section>
 
   <!-- 5. ABOUT -->
-  <section class="about" id="about" data-theme="mint" data-kf="about">
+  <section class="about" id="about" data-theme="cream" data-kf="about">
     <p class="eyebrow">About</p>
-    <p class="statement" id="statement">Nuvia is an AI agency. We design and build websites with AI doing the repetitive work and people making the decisions.</p>
+    <p class="statement" id="statement">Rahnova is an AI agency. We design and build websites with AI doing the repetitive work and people making the decisions.</p>
     <div class="about-grid">
       <div data-reveal>
         <h3>Why AI-first</h3>
@@ -471,7 +472,7 @@ html.reduced .loader{display:none}
   </section>
 
   <!-- 6. CONTACT -->
-  <section class="contact" id="contact" data-theme="forest" data-kf="contact">
+  <section class="contact" id="contact" data-theme="night" data-kf="contact">
     <p class="eyebrow">Contact</p>
     <h2 class="contact-title split">
       <span class="line"><span class="line-in">Tell us what</span></span>
@@ -513,9 +514,9 @@ html.reduced .loader{display:none}
 <footer data-theme="ink" data-kf="footer">
   <div class="foot-top">
     <div>
-      <a class="logo" href="#top" aria-label="Nuvia, back to top">
-        <svg viewBox="0 0 230 270" aria-hidden="true"><path class="mark-n" d="M20 250V60l190 190V102"/><circle class="mark-d" cx="209" cy="29" r="26"/></svg>
-        <span>nuvia</span>
+      <a class="logo" href="#top" aria-label="Rahnova, back to top">
+        <svg viewBox="0 0 230 270" aria-hidden="true"><path class="mark-n" d="M20 250V60h90a65 65 0 0 1 0 130H20M110 190l100 60"/><circle class="mark-d" cx="209" cy="29" r="26"/></svg>
+        <span>rahnova</span>
       </a>
       <p class="eyebrow">Build fast. Grow smarter.</p>
     </div>
@@ -532,8 +533,8 @@ html.reduced .loader{display:none}
       </ul>
     </nav>
   </div>
-  <div class="mega" aria-hidden="true"><span class="line"><span class="line-in grad">nuvia</span></span></div>
-  <div class="foot-bottom"><span>&copy; <span id="year">2026</span> Nuvia</span><span>AI-powered website development</span></div>
+  <div class="mega" aria-hidden="true"><span class="line"><span class="line-in grad">rahnova</span></span></div>
+  <div class="foot-bottom"><span>&copy; <span id="year">2026</span> Rahnova</span><span>AI-powered website development</span></div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -611,7 +612,7 @@ html.reduced .loader{display:none}
 
   /* ---------- Section themes: the page colour changes as each section arrives ---------- */
   var themeMeta = $('meta[name="theme-color"]');
-  var themeHex = { forest: '#0F3D2E', ink: '#06140F', mint: '#ECFDF5' };
+  var themeHex = { night: '#17153B', ink: '#0A0920', cream: '#FFF4EA' };
   function setTheme(t){
     if (document.body.dataset.theme === t) return;
     document.body.dataset.theme = t;
@@ -783,7 +784,7 @@ html.reduced .loader{display:none}
     });
   }
 
-  /* ---------- Contact form: opens WhatsApp with the message filled in, addressed to Nuvia ---------- */
+  /* ---------- Contact form: opens WhatsApp with the message filled in, addressed to Rahnova ---------- */
   var form = $('#form'), statusEl = $('#formStatus');
   form.addEventListener('submit', function(e){
     e.preventDefault();
@@ -793,7 +794,7 @@ html.reduced .loader{display:none}
       return;
     }
     var d = new FormData(form);
-    var text = 'Hi Nuvia, I have a project enquiry.\n\nName: ' + d.get('name') + '\nEmail: ' + d.get('email') +
+    var text = 'Hi Rahnova, I have a project enquiry.\n\nName: ' + d.get('name') + '\nEmail: ' + d.get('email') +
                '\nProject type: ' + d.get('type') + '\n\n' + d.get('message');
     var a = document.createElement('a');
     a.href = 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(text);
@@ -805,7 +806,7 @@ html.reduced .loader{display:none}
   /* =====================================================================
      3D: the logo mark, ray-marched in a Three.js shader.
      One object travels down the page and takes a new form in each section.
-     The lime dot from the logo stays with it the whole way.
+     The ember dot from the logo stays with it the whole way.
      ===================================================================== */
   var GL = (function(){
     if (!window.THREE) return null;
@@ -826,11 +827,15 @@ html.reduced .loader{display:none}
       'float sdTorus(vec3 p, vec2 t){ vec2 q=vec2(length(p.xy)-t.x,p.z); return length(q)-t.y; }',
       'float smin(float a, float b, float k){ float h=clamp(.5+.5*(b-a)/k,0.,1.); return mix(b,a,h)-k*h*(1.-h); }',
       'float shape(float id, vec3 p){',
-      '  if(id<.5){',                                   // 0: the N from the logo mark
+      '  if(id<.5){',                                   // 0: the R from the logo mark
       '    float r=.155;',
-      '    float d=sdCapsule(p,vec3(-.76,-.88,0.),vec3(-.76,.64,0.),r);',
-      '    d=smin(d,sdCapsule(p,vec3(-.76,.64,0.),vec3(.76,-.88,0.),r),.05);',
-      '    d=smin(d,sdCapsule(p,vec3(.76,-.88,0.),vec3(.76,.304,0.),r),.05);',
+      '    float d=sdCapsule(p,vec3(-.76,-.88,0.),vec3(-.76,.64,0.),r);',            // stem
+      '    d=smin(d,sdCapsule(p,vec3(-.76,.64,0.),vec3(-.04,.64,0.),r),.05);',       // top of the bowl
+      '    d=smin(d,sdCapsule(p,vec3(-.76,-.40,0.),vec3(-.04,-.40,0.),r),.05);',     // bottom of the bowl
+      '    vec3 c=p-vec3(-.04,.12,0.);',                                             // right half of a ring = the bowl
+      '    float bowl=c.x>0.?length(vec2(length(c.xy)-.52,c.z))-r:min(length(c-vec3(0.,.52,0.)),length(c+vec3(0.,.52,0.)))-r;',
+      '    d=smin(d,bowl,.05);',
+      '    d=smin(d,sdCapsule(p,vec3(-.04,-.40,0.),vec3(.76,-.88,0.),r),.05);',      // leg
       '    return d;',
       '  }',
       '  if(id<1.5){',                                  // 1: living orb (not currently used)
@@ -910,8 +915,8 @@ html.reduced .loader{display:none}
       uRes: { value: new THREE.Vector2(1, 1) }, uTime: { value: 0 }, uPos: { value: new THREE.Vector2() }, uScale: { value: 0.5 },
       uA: { value: 0 }, uB: { value: 0 }, uMix: { value: 0 }, uRot: { value: new THREE.Matrix3() },
       uDot: { value: new THREE.Vector3(0.752, 0.888, 0) }, uDotR: { value: 0.208 }, uAlpha: { value: 0 }, uGlow: { value: 1 },
-      cInk: { value: new THREE.Color('#06140F') }, cForest: { value: new THREE.Color('#0F3D2E') },
-      cLime: { value: new THREE.Color('#A3E635') }, cMint: { value: new THREE.Color('#ECFDF5') }
+      cInk: { value: new THREE.Color('#0A0920') }, cForest: { value: new THREE.Color('#17153B') },
+      cLime: { value: new THREE.Color('#FF7849') }, cMint: { value: new THREE.Color('#FFF4EA') }
     };
     var mat = new THREE.ShaderMaterial({
       uniforms: U, defines: { STEPS: smallAtStart ? 44 : 72 },   // fewer ray steps on phones
@@ -953,7 +958,7 @@ html.reduced .loader{display:none}
       }, { passive: true });
     }
 
-    /* Where the lime dot sits for each form */
+    /* Where the ember dot sits for each form */
     function dotFor(shape, t, out){
       switch (shape) {
         case 1: out.set(1.2 * Math.cos(t * 0.7), 0.3 * Math.sin(t * 0.9), 1.2 * Math.sin(t * 0.7)); return 0.13;
@@ -1008,7 +1013,7 @@ html.reduced .loader{display:none}
       U.uPos.value.set(cur.x * aspect * 0.5 + mouse.x * 0.012, cur.y * 0.5 + mouse.y * 0.012);
       U.uScale.value = cur.s * (0.72 + 0.28 * rv);
       U.uAlpha.value = alpha; U.uTime.value = t;
-      glow += ((document.body.dataset.theme === 'mint' ? 0 : 1) - glow) * 0.06; U.uGlow.value = glow;
+      glow += ((document.body.dataset.theme === 'cream' ? 0 : 1) - glow) * 0.06; U.uGlow.value = glow;
       renderer.render(scene, cam);
     }
 
