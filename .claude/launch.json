@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "nuvia-site",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", ".claude\\serve.ps1", "-Root", ".", "-Port", "4173"],
+      "port": 4173
+    },
+    {
+      "name": "font-test",
+      "runtimeExecutable": "powershell",
+      "runtimeArgs": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", ".claude\\serve.ps1", "-Root", "C:\\Users\\TRP\\AppData\\Local\\Temp\\claude\\416fdbc179f18eea\\c59d8706-d283-4c18-ad20-8849762ff5a5\\scratchpad", "-Port", "4174"],
+      "port": 4174
+    }
+  ]
+}

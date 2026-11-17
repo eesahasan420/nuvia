@@ -1,0 +1,1073 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nuvia — AI-powered website development</title>
+<meta name="description" content="Nuvia is an AI agency that designs and builds fast, custom websites.">
+<meta name="theme-color" content="#0F3D2E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-45 -25 320 320'%3E%3Crect x='-45' y='-25' width='320' height='320' rx='64' fill='%230F3D2E'/%3E%3Cpath d='M20 250V60l190 190V102' fill='none' stroke='%23ECFDF5' stroke-width='36' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='209' cy='29' r='26' fill='%23A3E635'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ---------- Brand tokens: every colour below is sampled from the Nuvia logo ---------- */
+:root{
+  --forest:#0F3D2E;   /* logo background */
+  --mint:#ECFDF5;     /* logo mark and wordmark (also the site's off-white) */
+  --lime:#A3E635;     /* logo dot */
+  --sage:#A7D8C2;     /* logo tagline */
+  --ink:#06140F;      /* the one added near-black */
+  /* The single brand gradient: logo colours, running bottom-left to top-right, toward the dot */
+  --grad:linear-gradient(45deg,var(--forest) 0%,var(--lime) 50%,var(--mint) 100%);
+  --display:"Space Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --body:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --pad:clamp(20px,4.2vw,72px);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-stopped{overflow:hidden}
+body{
+  --bg:var(--forest);--fg:var(--mint);--muted:var(--sage);--line:rgba(236,253,245,.17);--accent:var(--lime);
+  margin:0;background:var(--bg);color:var(--fg);
+  font:400 1rem/1.6 var(--body);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+  transition:background-color .9s var(--ease),color .7s var(--ease);
+}
+body[data-theme="ink"]{--bg:var(--ink)}
+body[data-theme="mint"]{--bg:var(--mint);--fg:var(--forest);--muted:rgba(15,61,46,.76);--line:rgba(15,61,46,.2);--accent:var(--forest)}
+h1,h2,h3,p,ol,ul,dl,dd,figure{margin:0}
+ol,ul{padding:0;list-style:none}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+svg{display:block}
+::selection{background:var(--lime);color:var(--ink)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:4px}
+.skip{position:fixed;left:16px;top:-80px;z-index:200;background:var(--lime);color:var(--ink);padding:12px 18px;border-radius:999px;font:600 .95rem/1 var(--display)}
+.skip:focus{top:16px}
+
+/* ---------- Shared type ---------- */
+.eyebrow{font:500 .78rem/1.2 var(--display);letter-spacing:.32em;text-transform:uppercase;color:var(--muted);transition:color .7s var(--ease)}
+.eyebrow b{font-weight:500;color:var(--accent);margin-right:1.2em;transition:color .7s var(--ease)}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.04em}
+h2{font-size:clamp(2.5rem,6.4vw,7rem);line-height:.96}
+.line{display:block;overflow:hidden;padding:.07em 0 .13em;margin:-.07em 0 -.13em}
+.line-in{display:block;will-change:transform}
+.grad{background:var(--grad);background-size:220% 100%;background-position:100% 50%;-webkit-background-clip:text;background-clip:text;color:transparent}
+body[data-theme="mint"] .grad{background:none;color:var(--forest)}
+.lede{font-size:clamp(1.05rem,1.35vw,1.35rem);line-height:1.55;color:var(--muted);max-width:36em;transition:color .7s var(--ease)}
+
+/* ---------- Buttons and links ---------- */
+.btn{display:inline-flex;align-items:center;gap:.75em;padding:1.1em 1.7em;border-radius:999px;font:600 1rem/1 var(--display);letter-spacing:-.01em;color:var(--ink);background:var(--grad);background-size:220% 100%;background-position:100% 50%;transition:background-position .7s var(--ease),box-shadow .5s var(--ease);will-change:transform}
+.btn:hover{background-position:60% 50%;box-shadow:0 0 44px rgba(163,230,53,.4)}
+.btn svg{width:1.05em;height:1.05em;transition:transform .5s var(--ease)}
+.btn:hover svg{transform:translate(3px,-3px)}
+.btn-sm{padding:.85em 1.3em;font-size:.9rem}
+body[data-theme="mint"] .btn{background:var(--forest);color:var(--mint)}
+body[data-theme="mint"] .btn:hover{box-shadow:0 0 44px rgba(15,61,46,.25)}
+.link{position:relative;display:inline-flex;align-items:center;gap:.6em;font:500 1rem/1 var(--display);padding:.5em 0}
+.link::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;transform-origin:right;transition:transform .6s var(--ease)}
+.link:hover::after{transform:scaleX(0);transform-origin:left}
+
+/* ---------- Fixed layers ---------- */
+#gl{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.grain{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .93 0 0 0 0 .99 0 0 0 0 .96 0 0 0 .7 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.cursor{position:fixed;top:0;left:0;z-index:90;pointer-events:none;display:none;transition:opacity .3s}
+html.has-cursor .cursor{display:block}
+html.has-cursor,html.has-cursor a,html.has-cursor button,html.has-cursor label{cursor:none}
+.cursor i{position:absolute;top:0;left:0;display:block}
+.c-dot{width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:var(--accent)}
+.c-ring b{display:block;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;border:1px solid var(--fg);opacity:.45;transition:transform .45s var(--ease),background-color .3s,border-color .3s,opacity .3s}
+.cursor[data-state="link"] .c-ring b{transform:scale(1.7);background:rgba(163,230,53,.2);border-color:var(--lime);opacity:1}
+.cursor[data-state="card"] .c-ring b{transform:scale(2.6);background:rgba(163,230,53,.28);border-color:var(--lime);opacity:1}
+.cursor[data-state="text"]{opacity:0}
+
+/* ---------- Loader ---------- */
+.loader{position:fixed;inset:0;z-index:100;background:var(--forest);color:var(--mint);display:flex;align-items:center;justify-content:center}
+.l-inner{display:flex;flex-direction:column;align-items:center;gap:28px}
+.l-mark{width:clamp(84px,10vw,132px);height:auto;overflow:visible}
+.l-path{fill:none;stroke:currentColor;stroke-width:36;stroke-linecap:round;stroke-linejoin:round}
+.l-dot{fill:var(--lime);transform-box:fill-box;transform-origin:center}
+.l-word{font:700 clamp(2.2rem,4.4vw,3.6rem)/1 var(--display);letter-spacing:-.03em;overflow:hidden;display:flex;padding-bottom:.12em}
+.l-word span{display:block}
+.l-foot{position:absolute;left:var(--pad);right:var(--pad);bottom:28px;display:flex;justify-content:space-between;align-items:flex-end;font:500 .78rem/1 var(--display);letter-spacing:.32em;text-transform:uppercase;color:var(--sage)}
+.l-num{font-variant-numeric:tabular-nums;letter-spacing:.1em;color:var(--mint)}
+
+/* ---------- Nav ---------- */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:18px var(--pad);transition:transform .7s var(--ease)}
+.nav::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--bg);opacity:0;transition:opacity .5s,background-color .9s var(--ease)}
+.nav.is-scrolled::before{opacity:.96}
+.nav.is-hidden{transform:translateY(-110%)}
+.logo{display:inline-flex;align-items:center;gap:12px;font:700 1.6rem/1 var(--display);letter-spacing:-.03em}
+.logo svg{width:26px;height:auto;overflow:visible}
+.mark-n{fill:none;stroke:currentColor;stroke-width:36;stroke-linecap:round;stroke-linejoin:round}
+.mark-d{fill:var(--lime)}
+.nav-links{display:flex;gap:clamp(18px,2.6vw,40px);font:500 .95rem/1 var(--display)}
+.nav-links a{position:relative;padding:.6em 0}
+.nav-links a::after{content:"";position:absolute;left:0;right:0;bottom:.2em;height:1px;background:var(--accent);transform:scaleX(0);transform-origin:right;transition:transform .5s var(--ease)}
+.nav-links a:hover::after{transform:scaleX(1);transform-origin:left}
+.nav-right{display:flex;align-items:center;gap:14px}
+.menu-btn{display:none;font:500 .95rem/1 var(--display);padding:.85em 1.2em;border:1px solid var(--line);border-radius:999px}
+.menu{position:fixed;inset:0;z-index:45;background:var(--ink);color:var(--mint);display:flex;flex-direction:column;justify-content:flex-end;padding:96px var(--pad) 40px;clip-path:inset(0 0 100% 0);visibility:hidden;transition:clip-path .8s var(--ease),visibility 0s .8s}
+.menu.is-open{clip-path:inset(0 0 0 0);visibility:visible;transition:clip-path .8s var(--ease),visibility 0s}
+.menu a.m-link{display:block;font:700 clamp(2.6rem,13vw,5rem)/1.05 var(--display);letter-spacing:-.04em;padding:.12em 0;border-top:1px solid rgba(236,253,245,.17)}
+.menu .btn{margin-top:28px;align-self:flex-start}
+
+/* ---------- Layout base ---------- */
+main,footer{position:relative;z-index:2}
+section{position:relative;padding:clamp(96px,13vw,210px) var(--pad)}
+
+/* ---------- Hero ---------- */
+.hero{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;padding:120px var(--pad) 0}
+.hero .eyebrow{margin-bottom:clamp(18px,2.2vw,32px)}
+.hero h1{font-size:clamp(2.5rem,9.6vw,11rem);line-height:.92;letter-spacing:-.045em}
+.hero-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;margin-top:clamp(22px,2.6vw,44px);padding-bottom:clamp(22px,2.6vw,40px)}
+.hero-sub{max-width:33em;font-size:clamp(1rem,1.25vw,1.25rem);color:var(--muted)}
+.hero-cta{display:flex;align-items:center;gap:28px;flex-wrap:wrap}
+.ticker{margin:0 calc(var(--pad)*-1);border-top:1px solid var(--line);overflow:hidden;padding:17px 0}
+.ticker-in{display:flex;width:max-content;animation:tick 36s linear infinite}
+.ticker-in span{font:500 .78rem/1 var(--display);letter-spacing:.32em;text-transform:uppercase;color:var(--muted);white-space:nowrap;padding-right:3.2em}
+.ticker-in span::after{content:"";display:inline-block;width:.6em;height:.6em;border-radius:50%;background:var(--lime);margin-left:3.2em;vertical-align:.02em}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* ---------- Services: website development (light, oversized words on the right) ---------- */
+.world-head h2{margin:clamp(18px,2.4vw,36px) 0 clamp(20px,2.4vw,36px)}
+.world-web{min-height:120vh}
+.world-web .world-head,.world-web .bigs{width:min(58%,880px);margin-left:auto}
+.bigs{margin-top:clamp(48px,6vw,96px)}
+.big{position:relative;padding:clamp(18px,2.2vw,30px) 0 clamp(22px,2.6vw,36px);border-top:1px solid var(--line)}
+.big:last-child{border-bottom:1px solid var(--line)}
+.big h3{font-size:clamp(2.3rem,5.4vw,5.6rem);line-height:1;letter-spacing:-.05em;transition:transform .7s var(--ease)}
+.big:hover h3{transform:translateX(.25em)}
+.big p{margin-top:.9em;max-width:32em;color:var(--muted);transition:color .7s var(--ease)}
+.big-n{position:absolute;right:0;top:clamp(22px,2.6vw,36px);font:500 .78rem/1 var(--display);letter-spacing:.2em;color:var(--muted)}
+.big h3 i{font-style:normal;display:inline-block;width:.2em;height:.2em;border-radius:50%;background:var(--lime);margin-left:.12em;transform:scale(0);transition:transform .5s var(--ease)}
+.big:hover h3 i{transform:scale(1)}
+
+/* ---------- Live demo: pick a business and a style, and a home page rebuilds itself ---------- */
+.demo-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px 48px;flex-wrap:wrap}
+.demo-head h2{margin-top:clamp(18px,2.4vw,36px)}
+.demo-head .lede{max-width:25em}
+.demo-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2.4fr);gap:clamp(28px,4vw,72px);align-items:center;margin-top:clamp(40px,5vw,80px)}
+.demo-ctrl{display:grid;gap:30px}
+.demo-ctrl .pills{margin:0}
+.demo-note{font:500 .78rem/1.5 var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.demo-timer{display:block;height:2px;background:var(--line);overflow:hidden;margin-top:-18px}
+.demo-timer b{display:block;height:100%;background:var(--lime);transform-origin:left;transform:scaleX(0)}
+.demo-stage{perspective:1400px}
+.demo-site{
+  --s-bg:var(--mint);--s-fg:var(--forest);--s-bb:var(--forest);--s-bf:var(--mint);--s-a:var(--lime);--s-b:var(--forest);--s-c:var(--sage);
+  --px:0;--py:0;position:relative;aspect-ratio:16/10;border-radius:clamp(14px,1.6vw,26px);overflow:hidden;will-change:transform;
+  container-type:inline-size;display:flex;flex-direction:column;background:var(--s-bg);color:var(--s-fg);
+  box-shadow:0 50px 120px -50px rgba(0,0,0,.7);transition:background-color .9s var(--ease),color .9s var(--ease)}
+.demo-site.sty-bold{--s-bg:var(--ink);--s-fg:var(--mint);--s-bb:var(--lime);--s-bf:var(--ink);--s-a:var(--lime);--s-b:var(--sage);--s-c:var(--mint)}
+.demo-site.sty-fresh{--s-bg:var(--lime);--s-fg:var(--forest);--s-bb:var(--forest);--s-bf:var(--mint);--s-a:var(--mint);--s-b:var(--forest);--s-c:var(--sage)}
+.m-bar{flex:0 0 auto;height:max(26px,4.6cqw);display:flex;align-items:center;gap:max(4px,.7cqw);padding:0 2.2cqw;background:rgba(6,20,15,.1)}
+.sty-bold .m-bar{background:rgba(236,253,245,.07)}
+.m-bar i{width:max(6px,.9cqw);height:max(6px,.9cqw);border-radius:50%;background:currentColor;opacity:.35}
+.m-bar span{margin-left:1.4cqw;font:500 max(9px,1.2cqw)/1 var(--body);opacity:.7;padding:.45em 1.3em;border-radius:999px;background:rgba(6,20,15,.08)}
+.m-body{position:relative;flex:1;padding:3.4cqw 4.4cqw;overflow:hidden}
+.m-nav{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;font:700 max(10px,1.6cqw)/1 var(--display);letter-spacing:-.02em}
+.m-nav em{font-style:normal;font-weight:500;letter-spacing:0;opacity:.7;display:flex;gap:2.4cqw;font-size:max(9px,1.3cqw)}
+.m-h{position:relative;z-index:2;margin-top:7cqw;max-width:50%;font:700 5.6cqw/1 var(--display);letter-spacing:-.045em}
+.m-h .wo{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.1em;margin-bottom:-.1em}
+.m-h .wi{display:inline-block}
+.m-p{position:relative;z-index:2;margin-top:2cqw;max-width:40%;font:400 max(9px,1.5cqw)/1.45 var(--body);opacity:.8}
+.m-btn{position:relative;z-index:2;display:inline-block;margin-top:2.8cqw;padding:1.2cqw 2.2cqw;border-radius:999px;font:600 max(9px,1.4cqw)/1 var(--display);background:var(--s-bb);color:var(--s-bf);transition:background-color .9s var(--ease),color .9s var(--ease)}
+@container (max-width:520px){ .m-p,.m-nav em{display:none} .m-h{font-size:6.6cqw;max-width:54%} }
+/* The four shapes morph between a layout for each business */
+.s{position:absolute;z-index:1;display:block;transition:left .9s var(--ease),top .9s var(--ease),width .9s var(--ease),height .9s var(--ease),border-radius .9s var(--ease),background-color .9s var(--ease),transform .5s var(--ease)}
+.s1{background:var(--s-a);transform:translate(calc(var(--px)*44px),calc(var(--py)*28px))}
+.s2{background:var(--s-b);transform:translate(calc(var(--px)*-26px),calc(var(--py)*-16px))}
+.s3{background:var(--s-c);transform:translate(calc(var(--px)*-12px),calc(var(--py)*-8px))}
+.s4{background:var(--s-a);transform:translate(calc(var(--px)*60px),calc(var(--py)*38px))}
+.ind-clinic .s1{left:64cqw;top:9cqw;width:24cqw;height:24cqw;border-radius:50%}
+.ind-clinic .s2{left:58cqw;top:30cqw;width:11cqw;height:34cqw;border-radius:6cqw}
+.ind-clinic .s3{left:76cqw;top:37cqw;width:11cqw;height:26cqw;border-radius:6cqw}
+.ind-clinic .s4{left:88cqw;top:26cqw;width:4cqw;height:4cqw;border-radius:50%}
+.ind-store .s1{left:63cqw;top:10cqw;width:28cqw;height:28cqw;border-radius:50%}
+.ind-store .s2{left:57cqw;top:40cqw;width:40cqw;height:6cqw;border-radius:1cqw}
+.ind-store .s3{left:66cqw;top:46cqw;width:22cqw;height:20cqw;border-radius:1cqw}
+.ind-store .s4{left:89cqw;top:10cqw;width:5cqw;height:5cqw;border-radius:50%}
+.ind-food .s1{left:60cqw;top:10cqw;width:34cqw;height:34cqw;border-radius:50%}
+.ind-food .s3{left:69cqw;top:19cqw;width:16cqw;height:16cqw;border-radius:50%}
+.ind-food .s2{left:57cqw;top:48cqw;width:24cqw;height:6cqw;border-radius:6cqw}
+.ind-food .s4{left:84cqw;top:48cqw;width:6cqw;height:6cqw;border-radius:50%}
+.ind-home .s2{left:60cqw;top:16cqw;width:14cqw;height:50cqw;border-radius:1cqw}
+.ind-home .s3{left:76cqw;top:28cqw;width:14cqw;height:38cqw;border-radius:1cqw}
+.ind-home .s1{left:84cqw;top:9cqw;width:10cqw;height:10cqw;border-radius:50%}
+.ind-home .s4{left:54cqw;top:52cqw;width:42cqw;height:1.4cqw;border-radius:6cqw}
+
+/* ---------- Process: sticky heading, scroll-drawn timeline ---------- */
+.process-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,120px);align-items:start}
+.process-side{position:sticky;top:16vh}
+.process-side h2{margin:clamp(18px,2.4vw,36px) 0}
+.process-count{font:500 .9rem/1 var(--display);letter-spacing:.2em;color:var(--muted)}
+.process-count span{color:var(--lime);font-variant-numeric:tabular-nums}
+.steps{position:relative}
+.steps-line{position:absolute;left:5px;top:0;bottom:0;width:1px;background:var(--line)}
+.steps-line b{display:block;width:100%;height:100%;background:var(--lime);transform:scaleY(0);transform-origin:top}
+.step{position:relative;padding:9vh 0 9vh clamp(36px,4vw,64px);opacity:.5;transition:opacity .6s var(--ease)}
+.step.is-active{opacity:1}
+.step::before{content:"";position:absolute;left:0;top:calc(9vh + .55em);width:11px;height:11px;border-radius:50%;background:var(--bg);border:1px solid var(--sage);transition:background-color .4s,border-color .4s,transform .5s var(--ease)}
+.step.is-active::before{background:var(--lime);border-color:var(--lime);transform:scale(1.5)}
+.step-n{font:500 .78rem/1 var(--display);letter-spacing:.2em;color:var(--lime)}
+.step h3{font-size:clamp(2rem,3.8vw,4rem);line-height:1;margin:.3em 0 .4em}
+.step p{color:var(--muted);max-width:30em;font-size:clamp(1rem,1.2vw,1.2rem)}
+
+/* ---------- About: one large statement ---------- */
+.about{min-height:110vh}
+.statement{font:600 clamp(1.9rem,4.5vw,4.9rem)/1.06 var(--display);letter-spacing:-.04em;max-width:15.5em;margin-top:clamp(24px,3vw,48px)}
+.about-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(32px,5vw,96px);margin-top:clamp(56px,8vw,130px);max-width:min(64%,1000px)}
+.about-grid h3{font-size:clamp(1.3rem,1.9vw,1.9rem);margin-bottom:.6em;letter-spacing:-.03em}
+.about-grid p{color:var(--muted);transition:color .7s var(--ease)}
+.facts>div{display:flex;justify-content:space-between;gap:24px;padding:14px 0;border-top:1px solid var(--line)}
+.facts>div:last-child{border-bottom:1px solid var(--line)}
+.facts dt{font:500 .78rem/1.6 var(--display);letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.facts dd{font:600 1rem/1.4 var(--display)}
+
+/* ---------- Contact ---------- */
+.contact-title{font-size:clamp(2.6rem,9.2vw,10.5rem);line-height:.92;letter-spacing:-.045em;margin-top:clamp(18px,2.4vw,36px)}
+.contact-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:clamp(32px,6vw,120px);margin-top:clamp(48px,7vw,110px)}
+.contact-info p{color:var(--muted);max-width:26em}
+.contact-mail{display:inline-block;margin:28px 0 22px;font:600 clamp(1.2rem,1.9vw,1.9rem)/1.2 var(--display);letter-spacing:-.02em;border-bottom:1px solid var(--line);padding-bottom:.2em;transition:border-color .4s}
+.contact-mail:hover{border-color:var(--lime)}
+.contact-mail{display:block;width:max-content;max-width:100%;overflow-wrap:anywhere}
+.wa-link{display:inline-flex;align-items:center;gap:.7em;padding:.85em 1.3em;border:1px solid var(--line);border-radius:999px;font:500 1rem/1 var(--display);transition:border-color .4s,background-color .4s,color .4s}
+.wa-link svg{width:1.25em;height:1.25em;color:var(--lime)}
+.wa-link:hover{border-color:var(--lime);background:var(--lime);color:var(--ink)}
+.wa-link:hover svg{color:var(--ink)}
+.gl-slot{height:clamp(220px,34vh,360px);margin-top:44px;max-width:420px}
+.form{display:block}
+.field{display:block;margin-bottom:30px}
+.field>span,.pills legend{display:block;font:500 .78rem/1 var(--display);letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;padding:0}
+.field input,.field textarea{width:100%;background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;color:var(--fg);font:500 1.15rem/1.4 var(--body);padding:10px 0;transition:border-color .4s,box-shadow .4s}
+.field textarea{resize:vertical;min-height:110px}
+.field input:focus,.field textarea:focus{outline:none;border-bottom-color:var(--lime);box-shadow:0 2px 0 0 var(--lime)}
+.pills{border:0;padding:0;margin:0 0 30px;display:flex;flex-wrap:wrap;gap:10px}
+.pills legend{width:100%;margin-bottom:12px}
+.pill{position:relative}
+.pill input{position:absolute;opacity:0;width:1px;height:1px}
+.pill span{display:inline-block;padding:.8em 1.15em;border:1px solid var(--line);border-radius:999px;font:500 .95rem/1 var(--display);transition:background-color .3s,color .3s,border-color .3s}
+.pill:hover span{border-color:var(--lime)}
+.pill input:checked+span{background:var(--lime);color:var(--ink);border-color:var(--lime)}
+.pill input:focus-visible+span{outline:2px solid var(--lime);outline-offset:3px}
+.form-foot{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.form-status{color:var(--muted);font-size:.95rem;min-height:1.6em}
+
+/* ---------- Footer ---------- */
+footer{padding:clamp(56px,7vw,110px) var(--pad) 0;overflow:hidden}
+.foot-top{display:flex;justify-content:space-between;align-items:flex-start;gap:32px;flex-wrap:wrap}
+.foot-top .eyebrow{margin-top:18px}
+.foot-nav{display:flex;gap:clamp(28px,6vw,110px);font:500 1rem/1 var(--display)}
+.foot-nav ul{display:grid;gap:14px}
+.foot-nav a{border-bottom:1px solid transparent;padding-bottom:.25em;transition:border-color .4s}
+.foot-nav a:hover{border-color:var(--lime)}
+.mega{font:700 33.5vw/.86 var(--display);letter-spacing:-.05em;margin:clamp(24px,4vw,64px) -.04em 0;text-align:center;white-space:nowrap;user-select:none}
+.mega .line{padding:.02em 0 .06em;margin:0}
+.foot-bottom{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:18px 0 22px;border-top:1px solid var(--line);font-size:.85rem;color:var(--muted)}
+
+/* ---------- Phones and small tablets ---------- */
+@media (max-width:899px){
+  .nav-links,.nav .btn{display:none}
+  .menu-btn{display:block}
+  .hero h1{font-size:12vw}
+  .world-web .world-head,.world-web .bigs{width:100%}
+  .world-web,.about{min-height:0}
+  .demo-grid{grid-template-columns:minmax(0,1fr)}
+  .demo-stage{order:-1}
+  .process-grid,.contact-grid,.about-grid{grid-template-columns:minmax(0,1fr)}
+  .about-grid{max-width:none}
+  .process-side{position:static}
+  .gl-slot{height:200px;margin-top:28px;max-width:none}
+  .step{padding:6vh 0 6vh 36px}
+  .step::before{top:calc(6vh + .5em)}
+  .foot-nav{width:100%;justify-content:space-between}
+}
+
+/* ---------- Reduced motion: a calm, static version (the "reduced" class is set from the visitor's system setting) ---------- */
+html.reduced *,html.reduced *::before,html.reduced *::after{transition-duration:.01ms!important}
+html.reduced .ticker-in{animation:none}
+html.reduced #gl{position:absolute;height:100vh;height:100svh}
+html.reduced .step{opacity:1}
+html.reduced .steps-line b{transform:none}
+html.reduced .loader{display:none}
+</style>
+<script>if(window.matchMedia('(prefers-reduced-motion: reduce)').matches||/[?&]motion=off/.test(location.search))document.documentElement.classList.add('reduced');</script>
+<noscript><style>.loader{display:none}</style></noscript>
+</head>
+<body data-theme="forest">
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- Loading screen: the logo mark draws itself, then hands off to the 3D mark in the hero -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="l-inner">
+    <svg class="l-mark" viewBox="0 0 230 270"><path class="l-path" d="M20 250V60l190 190V102"/><circle class="l-dot" cx="209" cy="29" r="26"/></svg>
+    <div class="l-word"><span>n</span><span>u</span><span>v</span><span>i</span><span>a</span></div>
+  </div>
+  <div class="l-foot"><span>Build fast. Grow smarter.</span><span class="l-num" id="loaderNum">000</span></div>
+</div>
+
+<canvas id="gl" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor" id="cursor" aria-hidden="true"><i class="c-dot"></i><i class="c-ring"><b></b></i></div>
+
+<header class="nav" id="nav">
+  <a class="logo" href="#top" aria-label="Nuvia, back to top">
+    <svg viewBox="0 0 230 270" aria-hidden="true"><path class="mark-n" d="M20 250V60l190 190V102"/><circle class="mark-d" cx="209" cy="29" r="26"/></svg>
+    <span>nuvia</span>
+  </a>
+  <nav class="nav-links" aria-label="Primary">
+    <a href="#services">Services</a>
+    <a href="#demo">Demo</a>
+    <a href="#process">Process</a>
+    <a href="#about">About</a>
+  </nav>
+  <div class="nav-right">
+    <a class="btn btn-sm magnetic" href="#contact" data-book>Book a call</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="menu">Menu</button>
+  </div>
+</header>
+
+<div class="menu" id="menu">
+  <a class="m-link" href="#services">Services</a>
+  <a class="m-link" href="#demo">Demo</a>
+  <a class="m-link" href="#process">Process</a>
+  <a class="m-link" href="#about">About</a>
+  <a class="m-link" href="#contact">Contact</a>
+  <a class="btn" href="#contact" data-book>Book a call</a>
+</div>
+
+<main id="main">
+
+  <!-- 1. HERO -->
+  <section class="hero" id="top" data-theme="forest" data-kf="hero">
+    <p class="eyebrow" data-hero>AI-powered website development</p>
+    <h1>
+      <span class="line"><span class="line-in">Build fast.</span></span>
+      <span class="line"><span class="line-in">Grow <span class="grad">smarter.</span></span></span>
+    </h1>
+    <div class="hero-foot">
+      <p class="hero-sub" data-hero>We design and build custom websites that load fast and explain clearly what you sell, with AI speeding up the work and people making the decisions.</p>
+      <div class="hero-cta" data-hero>
+        <a class="btn magnetic" href="#contact" data-book>Book a call
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12 12 4M5.5 4H12v6.5"/></svg>
+        </a>
+        <a class="link" href="#demo">Try the live demo</a>
+      </div>
+    </div>
+    <div class="ticker" aria-hidden="true" data-hero>
+      <div class="ticker-in">
+        <span>Web design</span><span>Custom builds</span><span>Responsive</span><span>Fast loading</span><span>Web design</span><span>Development</span><span>3D &amp; interactive</span>
+        <span>Web design</span><span>Custom builds</span><span>Responsive</span><span>Fast loading</span><span>Web design</span><span>Development</span><span>3D &amp; interactive</span>
+        <span>Web design</span><span>Custom builds</span><span>Responsive</span><span>Fast loading</span><span>Web design</span><span>Development</span><span>3D &amp; interactive</span>
+        <span>Web design</span><span>Custom builds</span><span>Responsive</span><span>Fast loading</span><span>Web design</span><span>Development</span><span>3D &amp; interactive</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. SERVICES: WEBSITE DEVELOPMENT -->
+  <section class="world world-web" id="services" data-theme="mint" data-kf="web">
+    <div class="world-head">
+      <p class="eyebrow">What we do</p>
+      <h2 class="split">
+        <span class="line"><span class="line-in">Websites people</span></span>
+        <span class="line"><span class="line-in">remember, and use.</span></span>
+      </h2>
+      <p class="lede" data-reveal>Every site is designed and built from scratch. No templates. Fast on a phone, clear about what you sell, and easy for your team to update.</p>
+    </div>
+    <ul class="bigs">
+      <li class="big" data-reveal><span class="big-n">01</span><h3>Design<i></i></h3><p>Layout, type and motion shaped around your brand, not a theme someone else also bought.</p></li>
+      <li class="big" data-reveal><span class="big-n">02</span><h3>Build<i></i></h3><p>Clean code that loads quickly, works on every screen size and can be read by search engines and screen readers.</p></li>
+      <li class="big" data-reveal><span class="big-n">03</span><h3>3D &amp; interactive<i></i></h3><p>Real-time 3D, scroll animation and product views, used where they help explain what you sell.</p></li>
+    </ul>
+  </section>
+
+  <!-- 3. LIVE DEMO -->
+  <section class="demo" id="demo" data-theme="forest" data-kf="work">
+    <div class="demo-head">
+      <div>
+        <p class="eyebrow">Live demo</p>
+        <h2 class="split">
+          <span class="line"><span class="line-in">Watch a site</span></span>
+          <span class="line"><span class="line-in grad">take shape.</span></span>
+        </h2>
+      </div>
+      <p class="lede" data-reveal>Pick a business and a style. The home page rebuilds itself in front of you, the same way we try ideas quickly before settling on one.</p>
+    </div>
+    <div class="demo-grid">
+      <div class="demo-ctrl" data-reveal>
+        <fieldset class="pills" id="demoInd">
+          <legend>Business</legend>
+          <label class="pill"><input type="radio" name="ind" value="clinic" checked><span>Dental clinic</span></label>
+          <label class="pill"><input type="radio" name="ind" value="store"><span>Clothing store</span></label>
+          <label class="pill"><input type="radio" name="ind" value="food"><span>Restaurant</span></label>
+          <label class="pill"><input type="radio" name="ind" value="home"><span>Real estate</span></label>
+        </fieldset>
+        <fieldset class="pills" id="demoSty">
+          <legend>Style</legend>
+          <label class="pill"><input type="radio" name="sty" value="calm" checked><span>Calm</span></label>
+          <label class="pill"><input type="radio" name="sty" value="bold"><span>Bold</span></label>
+          <label class="pill"><input type="radio" name="sty" value="fresh"><span>Fresh</span></label>
+        </fieldset>
+        <p class="demo-note" id="demoNote" aria-live="polite">Playing on its own. Pick an option to take over.</p>
+        <span class="demo-timer" aria-hidden="true"><b id="demoTimer"></b></span>
+      </div>
+      <div class="demo-stage tilt">
+        <div class="demo-site card-art ind-clinic sty-calm" id="demoSite" aria-hidden="true">
+          <div class="m-bar"><i></i><i></i><i></i><span id="demoUrl">lumendental.demo</span></div>
+          <div class="m-body">
+            <div class="m-nav"><b id="demoBrand">Lumen Dental</b><em id="demoLinks"><span>Treatments</span><span>Prices</span><span>Visit</span></em></div>
+            <p class="m-h" id="demoH">Calm, modern dentistry.</p>
+            <p class="m-p" id="demoP">Book a check-up from your phone in under a minute.</p>
+            <span class="m-btn" id="demoBtn">Book a visit</span>
+            <span class="s s1"></span><span class="s s2"></span><span class="s s3"></span><span class="s s4"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. PROCESS -->
+  <section class="process" id="process" data-theme="ink" data-kf="process">
+    <div class="process-grid">
+      <div class="process-side">
+        <p class="eyebrow">How it works</p>
+        <h2 class="split">
+          <span class="line"><span class="line-in">From first call</span></span>
+          <span class="line"><span class="line-in grad">to launch.</span></span>
+        </h2>
+        <p class="process-count" aria-hidden="true"><span id="procNum">01</span> / 05</p>
+      </div>
+      <ol class="steps" id="steps">
+        <li class="steps-line" aria-hidden="true"><b id="stepsBar"></b></li>
+        <li class="step"><span class="step-n">01</span><h3>Call</h3><p>A short call. You tell us what you sell, who buys it and what isn't working. We tell you plainly whether we can help.</p></li>
+        <li class="step"><span class="step-n">02</span><h3>Plan</h3><p>You get a written plan: what we'll build, what it costs and when it goes live. Nothing starts until you agree to it.</p></li>
+        <li class="step"><span class="step-n">03</span><h3>Design and build</h3><p>You see real, working pages early instead of static mock-ups. You give feedback as we go and we adjust.</p></li>
+        <li class="step"><span class="step-n">04</span><h3>Launch</h3><p>We test on real phones, check speed and tracking, then go live. Your team gets a walkthrough of how to update everything.</p></li>
+        <li class="step"><span class="step-n">05</span><h3>Support</h3><p>After launch we fix issues, make the changes you ask for and keep the site fast and up to date.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- 5. ABOUT -->
+  <section class="about" id="about" data-theme="mint" data-kf="about">
+    <p class="eyebrow">About</p>
+    <p class="statement" id="statement">Nuvia is an AI agency. We design and build websites with AI doing the repetitive work and people making the decisions.</p>
+    <div class="about-grid">
+      <div data-reveal>
+        <h3>Why AI-first</h3>
+        <p>AI is good at first drafts, layout variations, routine code and checking for errors. People are good at knowing your customers and deciding what matters. We give each the right job, so sites ship sooner and nothing goes live without a person checking it.</p>
+      </div>
+      <dl class="facts" data-reveal>
+        <div><dt>Founded</dt><dd>2026</dd></div>
+        <div><dt>Based in</dt><dd>Karachi, Pakistan</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- 6. CONTACT -->
+  <section class="contact" id="contact" data-theme="forest" data-kf="contact">
+    <p class="eyebrow">Contact</p>
+    <h2 class="contact-title split">
+      <span class="line"><span class="line-in">Tell us what</span></span>
+      <span class="line"><span class="line-in grad">you're building.</span></span>
+    </h2>
+    <div class="contact-grid">
+      <div class="contact-info" data-reveal>
+        <p>Send a few lines about your project. The form opens WhatsApp with your message ready, and we'll reply there with times for a call.</p>
+        <a class="contact-mail" id="mailLink" href="mailto:eesahasan@nuviawebai.com">eesahasan@nuviawebai.com</a>
+        <a class="wa-link" id="waLink" href="https://wa.me/923424111102" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3Z"/></svg>
+          <span>WhatsApp 0342 4111102</span>
+        </a>
+        <div class="gl-slot" id="glSlot" aria-hidden="true"></div>
+      </div>
+      <form class="form" id="form" novalidate data-reveal>
+        <label class="field"><span>Name</span><input type="text" name="name" autocomplete="name" required></label>
+        <label class="field"><span>Email</span><input type="email" name="email" autocomplete="email" required></label>
+        <fieldset class="pills">
+          <legend>Project type</legend>
+          <label class="pill"><input type="radio" name="type" value="New website" checked><span>New website</span></label>
+          <label class="pill"><input type="radio" name="type" value="Redesign"><span>Redesign</span></label>
+          <label class="pill"><input type="radio" name="type" value="3D / interactive"><span>3D / interactive</span></label>
+          <label class="pill"><input type="radio" name="type" value="Not sure yet"><span>Not sure yet</span></label>
+        </fieldset>
+        <label class="field"><span>Message</span><textarea name="message" rows="4" required></textarea></label>
+        <div class="form-foot">
+          <button class="btn magnetic" type="submit">Send on WhatsApp
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12 12 4M5.5 4H12v6.5"/></svg>
+          </button>
+          <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<!-- 7. FOOTER -->
+<footer data-theme="ink" data-kf="footer">
+  <div class="foot-top">
+    <div>
+      <a class="logo" href="#top" aria-label="Nuvia, back to top">
+        <svg viewBox="0 0 230 270" aria-hidden="true"><path class="mark-n" d="M20 250V60l190 190V102"/><circle class="mark-d" cx="209" cy="29" r="26"/></svg>
+        <span>nuvia</span>
+      </a>
+      <p class="eyebrow">Build fast. Grow smarter.</p>
+    </div>
+    <nav class="foot-nav" aria-label="Footer">
+      <ul>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#demo">Demo</a></li>
+        <li><a href="#process">Process</a></li>
+      </ul>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#contact" data-book>Book a call</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="mega" aria-hidden="true"><span class="line"><span class="line-in grad">nuvia</span></span></div>
+  <div class="foot-bottom"><span>&copy; <span id="year">2026</span> Nuvia</span><span>AI-powered website development</span></div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script>
+(function(){
+  'use strict';
+
+  /* ---------- Contact details ---------- */
+  var CONFIG = {
+    email: 'eesahasan@nuviawebai.com',
+    whatsapp: '923424111102',   // 0342 4111102 in international format (92 = Pakistan, leading 0 dropped)
+    bookingUrl: ''              // e.g. a Calendly link. Empty = "Book a call" scrolls to the contact form
+  };
+
+  var $ = function(s, c){ return (c || document).querySelector(s); };
+  var $$ = function(s, c){ return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+  var html = document.documentElement;
+  var reduce = html.classList.contains('reduced');   // system "reduce motion" setting, or add ?motion=off to the address to preview it
+  var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var loader = $('#loader');
+  var state = { reveal: reduce ? 1 : 0, proc: 0 };
+
+  $('#year').textContent = new Date().getFullYear();
+  $('#mailLink').href = 'mailto:' + CONFIG.email;
+  $('#waLink').href = 'https://wa.me/' + CONFIG.whatsapp;
+  if (CONFIG.bookingUrl) {
+    $$('[data-book]').forEach(function(a){ a.href = CONFIG.bookingUrl; a.target = '_blank'; a.rel = 'noopener'; });
+  }
+  $$('[data-placeholder]').forEach(function(a){ a.addEventListener('click', function(e){ e.preventDefault(); }); });
+
+  /* If the animation library failed to load, show the plain page */
+  if (!window.gsap || !window.ScrollTrigger) { if (loader) loader.remove(); return; }
+  gsap.registerPlugin(ScrollTrigger);
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
+
+  /* ---------- Smooth scrolling ---------- */
+  var lenis = null;
+  if (!reduce && window.Lenis) {
+    lenis = new Lenis({ duration: 1.15, smoothWheel: true });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add(function(t){ lenis.raf(t * 1000); });
+    gsap.ticker.lagSmoothing(0);
+    lenis.stop();
+  }
+
+  /* ---------- Mobile menu ---------- */
+  var menu = $('#menu'), menuBtn = $('#menuBtn'), nav = $('#nav');
+  function setMenu(open){
+    menu.classList.toggle('is-open', open);
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.textContent = open ? 'Close' : 'Menu';
+    if (lenis) { open ? lenis.stop() : lenis.start(); }
+    if (open) nav.classList.remove('is-hidden');
+  }
+  menuBtn.addEventListener('click', function(){ setMenu(!menu.classList.contains('is-open')); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') setMenu(false); });
+
+  /* ---------- In-page links ---------- */
+  $$('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var id = a.getAttribute('href');
+      if (id.length < 2) return;
+      var el = $(id);
+      if (!el) return;
+      e.preventDefault();
+      if (menu.classList.contains('is-open')) setMenu(false);
+      if (lenis) lenis.scrollTo(el, { duration: 1.5 });
+      else el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+    });
+  });
+
+  /* ---------- Section themes: the page colour changes as each section arrives ---------- */
+  var themeMeta = $('meta[name="theme-color"]');
+  var themeHex = { forest: '#0F3D2E', ink: '#06140F', mint: '#ECFDF5' };
+  function setTheme(t){
+    if (document.body.dataset.theme === t) return;
+    document.body.dataset.theme = t;
+    themeMeta.setAttribute('content', themeHex[t]);
+  }
+
+  var mm = gsap.matchMedia();
+
+  /* ---------- Live demo: the mock home page rebuilds for each business and style ---------- */
+  (function(){
+    var DEMO = {
+      clinic: { brand: 'Lumen Dental', url: 'lumendental.demo', links: ['Treatments', 'Prices', 'Visit'], h: 'Calm, modern dentistry.', p: 'Book a check-up from your phone in under a minute.', btn: 'Book a visit' },
+      store:  { brand: 'Kora Threads', url: 'korathreads.demo', links: ['Shop', 'Story', 'Cart (0)'], h: 'Handwoven, made to last.', p: 'Turn every piece in 3D before you buy it.', btn: 'Shop now' },
+      food:   { brand: 'Saffron & Salt', url: 'saffronandsalt.demo', links: ['Menu', 'Order', 'Find us'], h: 'Karachi street food, plated.', p: 'Order online and pick it up in fifteen minutes.', btn: 'See the menu' },
+      home:   { brand: 'Darya Residences', url: 'daryaresidences.demo', links: ['Homes', '3D tour', 'Enquire'], h: 'Sea-facing homes, in 3D.', p: 'Walk through every floor plan before you visit.', btn: 'Start the tour' }
+    };
+    var TOUR = [['store', 'bold'], ['food', 'fresh'], ['home', 'calm'], ['clinic', 'bold'], ['store', 'fresh'], ['home', 'bold'], ['food', 'calm'], ['clinic', 'calm']];
+    var site = $('#demoSite'), dH = $('#demoH'), dP = $('#demoP'), dBtn = $('#demoBtn'), dBrand = $('#demoBrand'),
+        dLinks = $('#demoLinks'), dUrl = $('#demoUrl'), note = $('#demoNote'), timer = $('#demoTimer');
+    var cur = { ind: 'clinic', sty: 'calm' }, step = 0, auto = !reduce, timerTween = null, visible = false;
+
+    function words(text){
+      dH.textContent = '';
+      text.split(' ').forEach(function(w, i){
+        var o = document.createElement('span'), n = document.createElement('span');
+        o.className = 'wo'; n.className = 'wi'; n.textContent = w; o.appendChild(n);
+        if (i) dH.appendChild(document.createTextNode(' '));
+        dH.appendChild(o);
+      });
+      return $$('.wi', dH);
+    }
+    function fill(d){
+      dBrand.textContent = d.brand; dUrl.textContent = d.url; dP.textContent = d.p; dBtn.textContent = d.btn;
+      dLinks.innerHTML = ''; d.links.forEach(function(l){ var s = document.createElement('span'); s.textContent = l; dLinks.appendChild(s); });
+      return words(d.h);
+    }
+    function show(ind, sty){
+      var changed = ind !== cur.ind;
+      cur.ind = ind; cur.sty = sty;
+      site.className = 'demo-site card-art ind-' + ind + ' sty-' + sty;
+      $('input[name="ind"][value="' + ind + '"]').checked = true;
+      $('input[name="sty"][value="' + sty + '"]').checked = true;
+      if (!changed) return;
+      if (reduce) { fill(DEMO[ind]); return; }
+      var rest = [dBrand, dLinks, dP, dBtn];
+      gsap.timeline()
+        .to($$('.wi', dH), { yPercent: -110, duration: 0.35, ease: 'power3.in', stagger: 0.03 }, 0)
+        .to(rest, { autoAlpha: 0, y: -8, duration: 0.25, stagger: 0.03 }, 0)
+        .add(function(){ gsap.fromTo(fill(DEMO[ind]), { yPercent: 110 }, { yPercent: 0, duration: 0.85, ease: 'power4.out', stagger: 0.05 }); })
+        .to(rest, { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.06 }, '+=0.2');
+    }
+    function next(){
+      var t = TOUR[step % TOUR.length]; step++;
+      show(t[0], t[1]);
+      run();
+    }
+    function run(){
+      if (!auto) return;
+      if (timerTween) timerTween.kill();
+      timerTween = gsap.fromTo(timer, { scaleX: 0 }, { scaleX: 1, duration: 3.4, ease: 'none', paused: !visible, onComplete: next });
+    }
+    function takeOver(){
+      if (!auto) return;
+      auto = false;
+      if (timerTween) timerTween.kill();
+      gsap.to(timer.parentNode, { autoAlpha: 0, duration: 0.4 });
+      note.textContent = 'You are in control. Try another combination.';
+    }
+    $$('#demoInd input, #demoSty input').forEach(function(inp){
+      inp.addEventListener('change', function(){
+        takeOver();
+        show($('input[name="ind"]:checked').value, $('input[name="sty"]:checked').value);
+      });
+    });
+    if (reduce) { note.textContent = 'Pick an option to change the page.'; timer.parentNode.style.display = 'none'; return; }
+    ScrollTrigger.create({ trigger: '#demo', start: 'top 70%', end: 'bottom 30%',
+      onToggle: function(self){
+        visible = self.isActive;
+        if (timerTween) { visible ? timerTween.play() : timerTween.pause(); }
+      } });
+    run();
+  })();
+
+  if (!reduce) {
+    /* Headlines reveal line by line */
+    gsap.set('.line-in', { yPercent: 110 });
+    $$('.split').forEach(function(h){
+      gsap.to($$('.line-in', h), { yPercent: 0, duration: 1.15, ease: 'power4.out', stagger: 0.1,
+        scrollTrigger: { trigger: h, start: 'top 88%' } });
+    });
+    gsap.to('.mega .line-in', { yPercent: 0, duration: 1.4, ease: 'power4.out', scrollTrigger: { trigger: '.mega', start: 'top 96%' } });
+
+    /* Smaller blocks fade up */
+    gsap.set('[data-reveal]', { autoAlpha: 0, y: 40 });
+    ScrollTrigger.batch('[data-reveal]', { start: 'top 90%', once: true,
+      onEnter: function(batch){ gsap.to(batch, { autoAlpha: 1, y: 0, duration: 1, ease: 'power3.out', stagger: 0.09, overwrite: true }); } });
+
+    /* About statement fills in word by word */
+    var st = $('#statement');
+    st.innerHTML = st.textContent.trim().split(/\s+/).map(function(w){ return '<span class="w">' + w + '</span>'; }).join(' ');
+    gsap.fromTo($$('.w', st), { opacity: 0.22 }, { opacity: 1, ease: 'none', stagger: 0.08,
+      scrollTrigger: { trigger: st, start: 'top 82%', end: 'bottom 48%', scrub: true } });
+  }
+
+  /* Process: timeline draws, steps light up, the 3D dot climbs the stairs */
+  var steps = $$('.step'), procNum = $('#procNum'), stepsBar = $('#stepsBar');
+  if (reduce) { stepsBar.style.transform = 'none'; }
+  else {
+    steps.forEach(function(s, i){
+      ScrollTrigger.create({ trigger: s, start: 'top 58%', end: 'bottom 58%',
+        onToggle: function(self){
+          s.classList.toggle('is-active', self.isActive);
+          if (self.isActive) procNum.textContent = '0' + (i + 1);
+        } });
+    });
+    ScrollTrigger.create({ trigger: '#steps', start: 'top 58%', end: 'bottom 58%', scrub: true,
+      onUpdate: function(self){ state.proc = self.progress; stepsBar.style.transform = 'scaleY(' + self.progress.toFixed(4) + ')'; } });
+  }
+
+  $$('main [data-theme], footer[data-theme]').forEach(function(sec){
+    ScrollTrigger.create({ trigger: sec, start: 'top 55%', end: 'bottom 55%',
+      onToggle: function(self){ if (self.isActive) setTheme(sec.dataset.theme); } });
+  });
+
+  /* Nav hides on the way down, returns on the way up */
+  ScrollTrigger.create({ start: 0, end: 'max',
+    onUpdate: function(self){
+      var y = self.scroll();
+      nav.classList.toggle('is-scrolled', y > 40);
+      nav.classList.toggle('is-hidden', self.direction === 1 && y > 240 && !menu.classList.contains('is-open'));
+    } });
+
+  ScrollTrigger.sort();
+
+  /* ---------- Custom cursor, magnetic buttons, tilting cards (mouse only) ---------- */
+  if (finePointer && !reduce) {
+    html.classList.add('has-cursor');
+    var cursor = $('#cursor'), cDot = $('.c-dot'), cRing = $('.c-ring');
+    var dx = gsap.quickTo(cDot, 'x', { duration: 0.1, ease: 'power3' }), dy = gsap.quickTo(cDot, 'y', { duration: 0.1, ease: 'power3' });
+    var rx = gsap.quickTo(cRing, 'x', { duration: 0.5, ease: 'power3' }), ry = gsap.quickTo(cRing, 'y', { duration: 0.5, ease: 'power3' });
+    gsap.set([cDot, cRing], { x: -100, y: -100 });
+    window.addEventListener('pointermove', function(e){ dx(e.clientX); dy(e.clientY); rx(e.clientX); ry(e.clientY); }, { passive: true });
+    document.addEventListener('pointerover', function(e){
+      var t = e.target.closest ? e.target.closest('input[type="text"],input[type="email"],textarea,a,button,label,.tilt') : null;
+      var s = '';
+      if (t) s = t.matches('input,textarea') ? 'text' : (t.classList.contains('tilt') ? 'card' : 'link');
+      cursor.dataset.state = s;
+    });
+
+    $$('.magnetic').forEach(function(el){
+      var xt = gsap.quickTo(el, 'x', { duration: 0.6, ease: 'power3' }), yt = gsap.quickTo(el, 'y', { duration: 0.6, ease: 'power3' });
+      el.addEventListener('pointermove', function(e){
+        var r = el.getBoundingClientRect();
+        xt((e.clientX - r.left - r.width / 2) * 0.35); yt((e.clientY - r.top - r.height / 2) * 0.35);
+      });
+      el.addEventListener('pointerleave', function(){ xt(0); yt(0); });
+    });
+
+    $$('.tilt').forEach(function(card){
+      var art = $('.card-art', card);
+      var tx = gsap.quickTo(art, 'rotationX', { duration: 0.7, ease: 'power3' }), ty = gsap.quickTo(art, 'rotationY', { duration: 0.7, ease: 'power3' });
+      card.addEventListener('pointermove', function(e){
+        var r = art.getBoundingClientRect();
+        var px = (e.clientX - r.left) / r.width - 0.5, py = (e.clientY - r.top) / r.height - 0.5;
+        ty(px * 16); tx(-py * 12);
+        art.style.setProperty('--px', px.toFixed(3)); art.style.setProperty('--py', py.toFixed(3));
+      });
+      card.addEventListener('pointerleave', function(){ tx(0); ty(0); art.style.setProperty('--px', 0); art.style.setProperty('--py', 0); });
+    });
+  }
+
+  /* ---------- Contact form: opens WhatsApp with the message filled in, addressed to Nuvia ---------- */
+  var form = $('#form'), statusEl = $('#formStatus');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (!form.checkValidity()) {
+      statusEl.textContent = 'Please add your name, a valid email and a short message.';
+      var bad = form.querySelector(':invalid'); if (bad) bad.focus();
+      return;
+    }
+    var d = new FormData(form);
+    var text = 'Hi Nuvia, I have a project enquiry.\n\nName: ' + d.get('name') + '\nEmail: ' + d.get('email') +
+               '\nProject type: ' + d.get('type') + '\n\n' + d.get('message');
+    var a = document.createElement('a');
+    a.href = 'https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(text);
+    a.target = '_blank'; a.rel = 'noopener';
+    document.body.appendChild(a); a.click(); a.remove();
+    statusEl.textContent = 'WhatsApp should open with your message ready. Press send there to reach us.';
+  });
+
+  /* =====================================================================
+     3D: the logo mark, ray-marched in a Three.js shader.
+     One object travels down the page and takes a new form in each section.
+     The lime dot from the logo stays with it the whole way.
+     ===================================================================== */
+  var GL = (function(){
+    if (!window.THREE) return null;
+    var canvas = $('#gl'), renderer;
+    try { renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: false, powerPreference: 'high-performance' }); }
+    catch (err) { canvas.style.display = 'none'; return null; }
+    renderer.setClearColor(0x000000, 0);
+
+    var smallAtStart = window.innerWidth < 900;
+    var frag = [
+      'precision highp float;',
+      'uniform vec2 uRes; uniform float uTime; uniform vec2 uPos; uniform float uScale;',
+      'uniform float uA; uniform float uB; uniform float uMix; uniform mat3 uRot;',
+      'uniform vec3 uDot; uniform float uDotR; uniform float uAlpha; uniform float uGlow;',
+      'uniform vec3 cInk; uniform vec3 cForest; uniform vec3 cLime; uniform vec3 cMint;',
+      'float sdCapsule(vec3 p, vec3 a, vec3 b, float r){ vec3 pa=p-a, ba=b-a; float h=clamp(dot(pa,ba)/dot(ba,ba),0.,1.); return length(pa-ba*h)-r; }',
+      'float sdRoundBox(vec3 p, vec3 b, float r){ vec3 q=abs(p)-b; return length(max(q,0.))+min(max(q.x,max(q.y,q.z)),0.)-r; }',
+      'float sdTorus(vec3 p, vec2 t){ vec2 q=vec2(length(p.xy)-t.x,p.z); return length(q)-t.y; }',
+      'float smin(float a, float b, float k){ float h=clamp(.5+.5*(b-a)/k,0.,1.); return mix(b,a,h)-k*h*(1.-h); }',
+      'float shape(float id, vec3 p){',
+      '  if(id<.5){',                                   // 0: the N from the logo mark
+      '    float r=.155;',
+      '    float d=sdCapsule(p,vec3(-.76,-.88,0.),vec3(-.76,.64,0.),r);',
+      '    d=smin(d,sdCapsule(p,vec3(-.76,.64,0.),vec3(.76,-.88,0.),r),.05);',
+      '    d=smin(d,sdCapsule(p,vec3(.76,-.88,0.),vec3(.76,.304,0.),r),.05);',
+      '    return d;',
+      '  }',
+      '  if(id<1.5){',                                  // 1: living orb (not currently used)
+      '    float t=uTime;',
+      '    float d=length(p)-.64;',
+      '    d+=.06*sin(3.2*p.x+t*.9)*sin(3.0*p.y+t*1.2)*sin(3.4*p.z+t*.7);',
+      '    vec3 a=vec3(cos(t*.6),sin(t*.8)*.5,sin(t*.6))*.72;',
+      '    vec3 b=vec3(cos(t*.5+2.1),sin(t*.7+1.)*.6,sin(t*.5+2.1))*.78;',
+      '    vec3 c=vec3(cos(t*.4+4.2)*.8,sin(t*.5+3.)*.7,sin(t*.4+4.2)*.5)*.9;',
+      '    d=smin(d,length(p-a)-.3,.32); d=smin(d,length(p-b)-.24,.32); d=smin(d,length(p-c)-.2,.32);',
+      '    return d;',
+      '  }',
+      '  if(id<2.5){',                                  // 2: stacked layers (website development)
+      '    float g=.4+.04*sin(uTime*.8);',
+      '    float d=sdRoundBox(p-vec3(-.06,-g,-.04),vec3(.8,.03,.55),.05);',
+      '    d=min(d,sdRoundBox(p,vec3(.8,.03,.55),.05));',
+      '    d=min(d,sdRoundBox(p-vec3(.06,g,.04),vec3(.8,.03,.55),.05));',
+      '    return d;',
+      '  }',
+      '  if(id<3.5){ return sdTorus(p,vec2(.78,.14)); }', // 3: ring (work)
+      '  if(id<4.5){',                                  // 4: five steps (process)
+      '    float d=1e3;',
+      '    for(int i=0;i<5;i++){ float fi=float(i); float top=-.55+.3*fi;',
+      '      d=min(d,sdRoundBox(p-vec3((fi-2.)*.38,(top-.85)*.5,0.),vec3(.15,(top+.85)*.5-.035,.3),.035)); }',
+      '    return d;',
+      '  }',
+      '  return length(p)-.92+.012*sin(7.*p.y+uTime);',  // 5: calm sphere (about)
+      '}',
+      'float body(vec3 q){',
+      '  float a=shape(uA,q);',
+      '  if(uMix>.001){ float b=shape(uB,q); a=mix(a,b,uMix);',
+      '    a-=sin(uMix*3.14159)*.05*sin(5.*q.x+uTime*2.)*sin(5.*q.y+uTime*1.6)*sin(5.*q.z+1.); }',
+      '  return a;',
+      '}',
+      'float map(vec3 p){ vec3 q=uRot*(p/uScale); return smin(body(q),length(q-uDot)-uDotR,.03)*uScale; }',
+      'vec3 ramp(float t){ t=clamp(t,0.,1.);',
+      '  vec3 c=mix(cInk,cForest,smoothstep(0.,.3,t)); c=mix(c,cLime,smoothstep(.3,.74,t)); return mix(c,cMint,smoothstep(.74,1.,t)); }',
+      'float hash(vec2 p){ return fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453); }',
+      'void main(){',
+      '  vec2 uv=(gl_FragCoord.xy-.5*uRes)/uRes.y-uPos;',
+      '  vec3 ro=vec3(0.,0.,5.); vec3 rd=normalize(vec3(uv,-2.5));',
+      '  float R=1.75*uScale; float b=dot(ro,rd); float h=b*b-(dot(ro,ro)-R*R);',
+      '  if(h<0.||uAlpha<.003){ gl_FragColor=vec4(0.); return; }',
+      '  h=sqrt(h); float t=-b-h; float tMax=-b+h; float minD=1e3; bool hit=false;',
+      '  for(int i=0;i<STEPS;i++){ float d=map(ro+rd*t); minD=min(minD,d); if(d<.0012){ hit=true; break; } t+=d*.8; if(t>tMax) break; }',
+      '  vec3 col; float a;',
+      '  if(hit){',
+      '    vec3 p=ro+rd*t; vec2 k=vec2(1.,-1.)*.003*max(uScale,.15);',
+      '    vec3 n=normalize(k.xyy*map(p+k.xyy)+k.yyx*map(p+k.yyx)+k.yxy*map(p+k.yxy)+k.xxx*map(p+k.xxx));',
+      '    vec3 q=uRot*(p/uScale);',
+      '    float isDot=smoothstep(-.02,.02,body(q)-(length(q-uDot)-uDotR));',
+      '    vec3 v=-rd; vec3 r=reflect(rd,n); vec3 L=normalize(vec3(.6,.7,.5));',
+      '    float dif=.5+.5*dot(n,L);',
+      '    float env=.5+.5*dot(r,normalize(vec3(.55,.75,.35)));',
+      '    float fres=pow(1.-max(dot(n,v),0.),3.);',
+      '    float band=.5+.5*sin(r.y*3.4+r.x*1.6+q.x*1.3+q.y*.9+.6+uTime*.2);',
+      '    float tone=dif*.5+band*.34+env*.16;',
+      '    col=ramp(pow(tone,1.35));',
+      '    float strip=smoothstep(.72,.98,band); col+=cMint*strip*.14*env;',
+      '    col=mix(col,mix(cLime,cMint,.6),fres*.6);',
+      '    float spec=pow(max(dot(r,L),0.),48.); col+=cMint*spec*.55;',
+      '    float ao=clamp(.4+.6*map(p+n*.12*uScale)/(.12*uScale),0.,1.); col*=ao;',
+      '    vec3 dcol=cLime*(.7+.42*dif)+cMint*(fres*.45+spec*.6);',
+      '    col=mix(col,dcol,isDot);',
+      '    col+=(hash(gl_FragCoord.xy+fract(uTime)*91.)-.5)*.04;',
+      '    a=1.;',
+      '  } else {',
+      '    float edge=1.-smoothstep(0.,3./uRes.y,minD);',
+      '    float g=exp(-minD*7./uScale)*uGlow*smoothstep(0.,.6,h/R);',
+      '    col=mix(cLime,cMint,.5)*edge+cLime*g*.42; a=clamp(edge+g*.3,0.,1.);',
+      '  }',
+      '  gl_FragColor=vec4(col,a)*uAlpha;',
+      '}'
+    ].join('\n');
+
+    var U = {
+      uRes: { value: new THREE.Vector2(1, 1) }, uTime: { value: 0 }, uPos: { value: new THREE.Vector2() }, uScale: { value: 0.5 },
+      uA: { value: 0 }, uB: { value: 0 }, uMix: { value: 0 }, uRot: { value: new THREE.Matrix3() },
+      uDot: { value: new THREE.Vector3(0.752, 0.888, 0) }, uDotR: { value: 0.208 }, uAlpha: { value: 0 }, uGlow: { value: 1 },
+      cInk: { value: new THREE.Color('#06140F') }, cForest: { value: new THREE.Color('#0F3D2E') },
+      cLime: { value: new THREE.Color('#A3E635') }, cMint: { value: new THREE.Color('#ECFDF5') }
+    };
+    var mat = new THREE.ShaderMaterial({
+      uniforms: U, defines: { STEPS: smallAtStart ? 44 : 72 },   // fewer ray steps on phones
+      vertexShader: 'void main(){ gl_Position=vec4(position.xy,0.,1.); }',
+      fragmentShader: frag, depthTest: false, depthWrite: false, blending: THREE.NoBlending
+    });
+    var scene = new THREE.Scene(), cam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+    var quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), mat); quad.frustumCulled = false; scene.add(quad);
+
+    /* One keyframe per section: form, then [x, y, size, opacity] for desktop (d) and phone (m).
+       x and y run -1..1 across the screen; size is a fraction of screen height. */
+    var KF = [
+      { sel: '[data-kf="hero"]',    shape: 0, d: [ 0.52,  0.12, 0.50, 1], m: [ 0.00,  0.34, 0.36, 1],    rx: 0.00, ry: -0.20, sway: 1 },
+      { sel: '[data-kf="web"]',     shape: 2, d: [-0.52,  0.00, 0.44, 1], m: [ 0.80, -0.10, 0.34, 0.32], rx: 0.48, ry: 0.62, sway: 0.5 },
+      { sel: '[data-kf="work"]',    shape: 3, d: [ 0.86, -0.76, 0.085, 1], m: [ 0.66,  0.66, 0.07, 0.9], rx: 0.90, ry: 0.30, spin: 0.5 },
+      { sel: '[data-kf="process"]', shape: 4, d: [-0.50, -0.42, 0.28, 1], m: [ 0.80, -0.10, 0.30, 0.32], rx: 0.28, ry: -0.5, sway: 0.4 },
+      { sel: '[data-kf="about"]',   shape: 5, d: [ 0.98, -0.05, 0.62, 1], m: [ 1.00, -0.55, 0.42, 0.5],  rx: 0.10, ry: 0.00, spin: 0.1 },
+      /* In the contact section the mark sits in its own empty slot in the layout and scrolls with the page */
+      { sel: '[data-kf="contact"]', shape: 0, d: [-0.56, -0.46, 0.33, 1], m: [ 0.00, -0.40, 0.20, 1],    rx: 0.00, ry: 0.30, sway: 1, anchor: '#glSlot' },
+      { sel: '[data-kf="footer"]',  shape: 0, d: [-0.56,  0.30, 0.20, 0], m: [ 0.00,  0.40, 0.20, 0],    rx: 0.00, ry: 0.30, sway: 1, anchor: '#glSlot', tail: true }
+    ];
+    KF.forEach(function(k){ k.el = $(k.sel); k.anchorEl = k.anchor ? $(k.anchor) : null; });
+
+    function place(k, small){
+      var v = small ? k.m : k.d;
+      if (!k.anchorEl) return v;
+      var r = k.anchorEl.getBoundingClientRect(), vw = window.innerWidth, vh = window.innerHeight;
+      return [(r.left + r.width / 2) / vw * 2 - 1, -((r.top + r.height / 2) / vh * 2 - 1), Math.min(r.height / (vh * 1.25), r.width / vh), v[3]];
+    }
+
+    var cur = null, spinAngle = 0, lastT = 0, glow = 1, cleared = false;
+    var mouse = { x: 0, y: 0, tx: 0, ty: 0 };
+    var eul = new THREE.Euler(), m4 = new THREE.Matrix4(), dA = new THREE.Vector3(), dB = new THREE.Vector3();
+    var lerp = function(a, b, t){ return a + (b - a) * t; };
+
+    if (finePointer && !reduce) {
+      window.addEventListener('pointermove', function(e){
+        mouse.tx = e.clientX / window.innerWidth * 2 - 1; mouse.ty = -(e.clientY / window.innerHeight * 2 - 1);
+      }, { passive: true });
+    }
+
+    /* Where the lime dot sits for each form */
+    function dotFor(shape, t, out){
+      switch (shape) {
+        case 1: out.set(1.2 * Math.cos(t * 0.7), 0.3 * Math.sin(t * 0.9), 1.2 * Math.sin(t * 0.7)); return 0.13;
+        case 2: out.set(0.42, 0.66 + 0.05 * Math.sin(t * 1.6), 0.22); return 0.13;
+        case 3: out.set(0, 0, 0); return 0.26 + 0.03 * Math.sin(t * 2);
+        case 4: { var fp = state.proc * 4, f = fp - Math.floor(fp);
+          out.set((fp - 2) * 0.38, -0.55 + 0.3 * fp + 0.15 + Math.sin(f * Math.PI) * 0.22, 0); return 0.15; }
+        case 5: out.set(1.3 * Math.cos(t * 0.35), 0.35, 1.3 * Math.sin(t * 0.35)); return 0.12;
+        default: out.set(0.752, 0.888, 0); return 0.208;
+      }
+    }
+
+    /* Which two keyframes the scroll position sits between, and how far along */
+    function sample(){
+      var vh = window.innerHeight, n = KF.length, i;
+      for (i = 0; i < n; i++) {
+        var r = KF[i].el.getBoundingClientRect(), hh = Math.min(r.height, vh) / 2;
+        if (KF[i].tail) { KF[i].enter = r.top - vh * 0.6; KF[i].exit = 1e9; }
+        else { KF[i].enter = r.top + hh - vh / 2; KF[i].exit = r.bottom - hh - vh / 2; }
+      }
+      if (KF[0].enter > 0) return [0, 0, 0];
+      for (i = 0; i < n; i++) {
+        if (KF[i].enter <= 0 && KF[i].exit >= 0) return [i, i, 0];
+        if (i < n - 1 && KF[i].exit < 0 && KF[i + 1].enter > 0) return [i, i + 1, -KF[i].exit / (KF[i + 1].enter - KF[i].exit)];
+      }
+      return [n - 1, n - 1, 0];
+    }
+
+    function frame(time){
+      var t = reduce ? 0 : time, dt = Math.min(0.05, Math.max(0, t - lastT)); lastT = t;
+      var s = reduce ? [0, 0, 0] : sample(), A = KF[s[0]], B = KF[s[1]], e = s[2] * s[2] * (3 - 2 * s[2]);
+      var small = window.innerWidth < 900, a = place(A, small), b = place(B, small);
+      var tgt = { x: lerp(a[0], b[0], e), y: lerp(a[1], b[1], e), s: lerp(a[2], b[2], e), a: lerp(a[3], b[3], e) };
+      var ease = (A.anchorEl && B.anchorEl) ? 0.4 : 0.14;
+      if (!cur) cur = tgt;
+      else { cur.x += (tgt.x - cur.x) * ease; cur.y += (tgt.y - cur.y) * ease; cur.s += (tgt.s - cur.s) * 0.14; cur.a += (tgt.a - cur.a) * 0.2; }
+      mouse.x += (mouse.tx - mouse.x) * 0.06; mouse.y += (mouse.ty - mouse.y) * 0.06;
+      var rv = state.reveal, alpha = cur.a * rv;
+      if (alpha < 0.004) { if (!cleared) { renderer.clear(); cleared = true; } return; }   // nothing to draw: skip the frame
+      cleared = false;
+      var aspect = window.innerWidth / window.innerHeight;
+      spinAngle += lerp(A.spin || 0, B.spin || 0, e) * dt;
+      if (spinAngle > Math.PI) spinAngle -= 2 * Math.PI;
+      var sway = lerp(A.sway || 0, B.sway || 0, e), spinW = lerp(A.spin ? 1 : 0, B.spin ? 1 : 0, e);
+      eul.set(lerp(A.rx, B.rx, e) + Math.sin(t * 0.45) * 0.07 * sway - mouse.y * 0.28,
+              lerp(A.ry, B.ry, e) + Math.sin(t * 0.6) * 0.3 * sway + spinAngle * spinW + mouse.x * 0.45 + (1 - rv) * 1.5, 0);
+      m4.makeRotationFromEuler(eul);
+      U.uRot.value.setFromMatrix4(m4).transpose();
+      var rA = dotFor(A.shape, t, dA), rB = dotFor(B.shape, t, dB);
+      U.uDot.value.copy(dA.lerp(dB, e)); U.uDotR.value = lerp(rA, rB, e);
+      U.uA.value = A.shape; U.uB.value = B.shape; U.uMix.value = A.shape === B.shape ? 0 : e;
+      U.uPos.value.set(cur.x * aspect * 0.5 + mouse.x * 0.012, cur.y * 0.5 + mouse.y * 0.012);
+      U.uScale.value = cur.s * (0.72 + 0.28 * rv);
+      U.uAlpha.value = alpha; U.uTime.value = t;
+      glow += ((document.body.dataset.theme === 'mint' ? 0 : 1) - glow) * 0.06; U.uGlow.value = glow;
+      renderer.render(scene, cam);
+    }
+
+    var lastW = 0, lastH = 0;
+    function resize(force){
+      var w = window.innerWidth, h = window.innerHeight;
+      if (!force && w === lastW && Math.abs(h - lastH) < 120) return;   // ignore phone address-bar jitter
+      lastW = w; lastH = h;
+      var small = w < 900;
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, small ? 1 : 1.5));   // capped pixel ratio
+      renderer.setSize(w, h, false);
+      var buf = renderer.getDrawingBufferSize(new THREE.Vector2());
+      U.uRes.value.copy(buf);
+      if (reduce) frame(0);
+    }
+    window.addEventListener('resize', function(){ resize(false); });
+    resize(true);
+    if (reduce) frame(0);
+    else gsap.ticker.add(frame);   // the ticker stops by itself when the tab is hidden
+    return { frame: frame };
+  })();
+
+  /* ---------- Loader, then the hero entrance ---------- */
+  function heroIn(){
+    var tl = gsap.timeline();
+    tl.to('.hero .line-in', { yPercent: 0, duration: 1.3, ease: 'power4.out', stagger: 0.12 }, 0)
+      .fromTo('[data-hero]', { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 1.1, ease: 'power3.out', stagger: 0.1 }, 0.35)
+      .fromTo('.nav', { autoAlpha: 0, y: -30 }, { autoAlpha: 1, y: 0, duration: 1, ease: 'power3.out' }, 0.5);
+    return tl;
+  }
+
+  function start(){
+    ScrollTrigger.refresh();
+    if (reduce) { loader.remove(); return; }
+    gsap.set('.nav', { autoAlpha: 0 });
+    gsap.set('[data-hero]', { autoAlpha: 0 });
+    var path = $('.l-path'), len = path.getTotalLength(), num = $('#loaderNum'), c = { v: 0 };
+    gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
+    gsap.set('.l-dot', { scale: 0 });
+    gsap.set('.l-word span', { yPercent: 115 });
+    gsap.timeline({ onComplete: function(){ loader.remove(); if (lenis) lenis.start(); } })
+      .to(c, { v: 100, duration: 1.8, ease: 'power2.inOut', onUpdate: function(){ num.textContent = ('00' + Math.round(c.v)).slice(-3); } }, 0)
+      .to(path, { strokeDashoffset: 0, duration: 1.3, ease: 'power3.inOut' }, 0.1)
+      .to('.l-dot', { scale: 1, duration: 0.7, ease: 'back.out(3)' }, 1.05)
+      .to('.l-word span', { yPercent: 0, duration: 0.8, ease: 'power4.out', stagger: 0.05 }, 0.8)
+      .addLabel('out', 2.15)
+      .to('.l-foot', { autoAlpha: 0, duration: 0.4 }, 'out')
+      .to('.l-inner', { scale: 1.5, autoAlpha: 0, duration: 0.75, ease: 'power3.in' }, 'out')
+      .to(loader, { clipPath: 'inset(0 0 100% 0)', duration: 1, ease: 'power4.inOut' }, 'out+=0.3')
+      .to(state, { reveal: 1, duration: 1.8, ease: 'power3.out' }, 'out+=0.45')
+      .add(heroIn(), 'out+=0.75');
+  }
+
+  var started = false;
+  function go(){ if (started) return; started = true; start(); }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(go);
+  setTimeout(go, 2500);
+  window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
+})();
+</script>
+</body>
+</html>
